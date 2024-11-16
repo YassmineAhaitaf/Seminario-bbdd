@@ -1,0 +1,36 @@
+ID Tratamiento,ID Paciente,Tipo de Tratamiento,Detalle,Duración (meses),Frecuencia,Resultado Esperado
+T001,P001,Cambio de Estilo de Vida,Ejercicio Aeróbico,7,Diario,Reducir colesterol
+T002,P002,Farmacológico,Atorvastatina,16,Diario,Reducir colesterol
+T003,P003,Intervención Quirúrgica,Colocación de Stent,21,Única,Reducir colesterol
+T004,P004,Farmacológico,Bisoprolol,11,Única,Mejorar flujo sanguíneo
+T005,P005,Farmacológico,Aspirina,19,Diario,Reducir presión arterial
+T006,P006,Intervención Quirúrgica,Bypass Coronario,24,Diario,Reducir presión arterial
+T007,P007,Farmacológico,Atorvastatina,9,Diario,Mejorar flujo sanguíneo
+T008,P008,Farmacológico,Metformina,10,Diario,Mejorar flujo sanguíneo
+T009,P009,Cambio de Estilo de Vida,Ejercicio Aeróbico,19,Diario,Reducir colesterol
+T010,P010,Intervención Quirúrgica,Colocación de Stent,18,Única,Reducir colesterol
+T011,P011,Cambio de Estilo de Vida,Ejercicio Aeróbico,4,Única,Reducir colesterol
+T012,P012,Farmacológico,Losartán,13,Semanal,Reducir colesterol
+T013,P013,Farmacológico,Aspirina,15,Única,Mejorar flujo sanguíneo
+T014,P014,Cambio de Estilo de Vida,Reducción de Sodio,20,Única,Reducir colesterol
+T015,P015,Cambio de Estilo de Vida,Dieta Mediterránea,16,Diario,Reducir presión arterial
+T016,P016,Cambio de Estilo de Vida,Dieta Mediterránea,19,Semanal,Mejorar flujo sanguíneo
+T017,P017,Intervención Quirúrgica,Colocación de Stent,23,Semanal,Mejorar flujo sanguíneo
+T018,P018,Farmacológico,Aspirina,5,Semanal,Reducir colesterol
+T019,P019,Cambio de Estilo de Vida,Ejercicio Aeróbico,6,Diario,Reducir colesterol
+T020,P020,Cambio de Estilo de Vida,Reducción de Sodio,8,Diario,Reducir presión arterial
+T021,P021,Intervención Quirúrgica,Bypass Coronario,7,Diario,Reducir presión arterial
+T022,P022,Intervención Quirúrgica,Colocación de Stent,21,Única,Reducir colesterol
+T023,P023,Intervención Quirúrgica,Colocación de Stent,18,Única,Mejorar flujo sanguíneo
+T024,P024,Cambio de Estilo de Vida,Ejercicio Aeróbico,9,Diario,Mejorar flujo sanguíneo
+T025,P025,Cambio de Estilo de Vida,Reducción de Sodio,3,Semanal,Mejorar flujo sanguíneo
+T026,P026,Farmacológico,Bisoprolol,8,Única,Mejorar flujo sanguíneo
+T027,P027,Farmacológico,Bisoprolol,20,Diario,Reducir colesterol
+T028,P028,Farmacológico,Bisoprolol,17,Semanal,Mejorar flujo sanguíneo
+T029,P029,Cambio de Estilo de Vida,Ejercicio Aeróbico,22,Diario,Mejorar flujo sanguíneo
+T030,P030,Cambio de Estilo de Vida,Reducción de Sodio,8,Diario,Reducir colesterol
+T031,P031,Farmacológico,Aspirina,1,Semanal,Reducir presión arterial
+T032,P032,Intervención Quirúrgica,Bypass Coronario,7,Semanal,Reducir colesterol
+T033,P033,Intervención Quirúrgica,Bypass Coronario,21,Semanal,Reducir colesterol
+T034,P034,Farmacológico,Metformina,16,Diario,Reducir colesterol
+T035,P035,Farmacológico,Metformina,13,Semanal,Reducir presión arterial

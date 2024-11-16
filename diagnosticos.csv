@@ -1,0 +1,36 @@
+ID Diagnóstico,ID Paciente,Fecha del Diagnóstico,Enfermedad Cardiovascular,Gravedad,Riesgo Asociado,Plan de Seguimiento
+D001,P001,2024-06-14,Hipertensión Arterial,Alta,Muerte súbita,Hospitalización recurrente
+D002,P002,2023-06-11,Hipertensión Arterial,Alta,Edema pulmonar,Rehabilitación cardiovascular
+D003,P003,2021-06-10,Infarto Agudo de Miocardio,Crítica,Muerte súbita,Consulta trimestral
+D004,P004,2021-03-04,Hipertensión Arterial,Crítica,Muerte súbita,Consulta trimestral
+D005,P005,2022-01-16,Hipertensión Arterial,Alta,ACV,Control semestral de lípidos
+D006,P006,2024-04-21,Hipertensión Arterial,Crítica,Angina de pecho,Rehabilitación cardiovascular
+D007,P007,2022-01-06,Insuficiencia Cardíaca,Moderada,Muerte súbita,Seguimiento anual
+D008,P008,2021-02-26,Insuficiencia Cardíaca,Moderada,IAM,Consulta trimestral
+D009,P009,2021-12-24,Hipercolesterolemia,Moderada,IAM,Seguimiento anual
+D010,P010,2020-03-25,Insuficiencia Cardíaca,Crítica,IAM,Rehabilitación cardiovascular
+D011,P011,2022-06-25,Infarto Agudo de Miocardio,Alta,Angina de pecho,Seguimiento anual
+D012,P012,2022-08-06,Infarto Agudo de Miocardio,Moderada,ACV,Rehabilitación cardiovascular
+D013,P013,2020-01-18,Insuficiencia Cardíaca,Crítica,Angina de pecho,Hospitalización recurrente
+D014,P014,2019-11-27,Aterosclerosis Coronaria,Alta,Edema pulmonar,Consulta trimestral
+D015,P015,2023-07-18,Hipertensión Arterial,Crítica,Angina de pecho,Control semestral de lípidos
+D016,P016,2021-03-02,Hipercolesterolemia,Alta,ACV,Rehabilitación cardiovascular
+D017,P017,2021-01-06,Hipercolesterolemia,Moderada,Edema pulmonar,Rehabilitación cardiovascular
+D018,P018,2021-09-24,Infarto Agudo de Miocardio,Moderada,Edema pulmonar,Control semestral de lípidos
+D019,P019,2021-08-18,Hipertensión Arterial,Moderada,IAM,Consulta trimestral
+D020,P020,2021-01-24,Insuficiencia Cardíaca,Alta,IAM,Rehabilitación cardiovascular
+D021,P021,2020-01-24,Hipercolesterolemia,Alta,ACV,Rehabilitación cardiovascular
+D022,P022,2020-07-03,Hipertensión Arterial,Crítica,IAM,Rehabilitación cardiovascular
+D023,P023,2024-03-24,Insuficiencia Cardíaca,Moderada,Muerte súbita,Hospitalización recurrente
+D024,P024,2021-04-17,Insuficiencia Cardíaca,Crítica,IAM,Control semestral de lípidos
+D025,P025,2023-04-02,Hipertensión Arterial,Moderada,ACV,Hospitalización recurrente
+D026,P026,2021-12-31,Infarto Agudo de Miocardio,Moderada,Edema pulmonar,Control semestral de lípidos
+D027,P027,2021-12-09,Insuficiencia Cardíaca,Crítica,Muerte súbita,Hospitalización recurrente
+D028,P028,2021-07-15,Insuficiencia Cardíaca,Alta,Edema pulmonar,Control semestral de lípidos
+D029,P029,2024-02-12,Infarto Agudo de Miocardio,Moderada,IAM,Rehabilitación cardiovascular
+D030,P030,2023-09-16,Hipertensión Arterial,Alta,Edema pulmonar,Hospitalización recurrente
+D031,P031,2020-10-02,Insuficiencia Cardíaca,Crítica,ACV,Control semestral de lípidos
+D032,P032,2024-07-10,Infarto Agudo de Miocardio,Crítica,ACV,Hospitalización recurrente
+D033,P033,2023-01-14,Hipercolesterolemia,Alta,ACV,Rehabilitación cardiovascular
+D034,P034,2023-10-29,Hipercolesterolemia,Alta,IAM,Rehabilitación cardiovascular
+D035,P035,2021-01-04,Hipertensión Arterial,Crítica,ACV,Control semestral de lípidos
