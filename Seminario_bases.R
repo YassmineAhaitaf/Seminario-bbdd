@@ -1,14 +1,17 @@
 #Cargar el paquete RPostgres
 
-library(DBI)
+install.packages("DBI")
 install.packages("RPostgres")
+
+library(DBI)
+library(RPostgres)
 
 
 #Creando una conexión a la base de datos PostgreSQL 
 
-con <- dbConnect(RPostgreSQL::PostgreSQL(),
-                 dbname = "postgres" ,
-                 host = "localhost" ,
-                 port = 5432 ,
-                 user = "postgres" ,
+con <- dbConnect(RPostgres::Postgres(),
+                 dbname = "postgres",  
+                 host = "localhost",          
+                 port = 5432,                  
+                 user = "postgres",          
                  password = "postgres")
