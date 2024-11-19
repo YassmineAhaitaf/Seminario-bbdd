@@ -12,22 +12,15 @@ library(RPostgres)
 con <- dbConnect(RPostgres::Postgres(),
                  dbname = "postgres",  
                  host = "localhost",          
-                 port = 5432,                  
+                 port = 55708,                  
                  user = "postgres",          
                  password = "postgres")
 
-#Cargar tabla pacientes
 
-tabla_paciente<-read.csv("TABLAS/pacientes.csv")
+#CREANDO LA TABLA DE TRATAMIENTOS : 
 
-#Visualizar tabla pacientes 
-tabla_paciente
 
-#Cargar y Visualizar tabla diagnosticos
-tabla_diagnosticos<-read.csv("TABLAS/diagnosticos.csv")
-tabla_diagnosticos
 
-#Cargar y visualizar tablas tratamientos
 
-tabla_tto<-read.csv("TABLAS/diagnosticos.csv")
-tabla_tto
+
+
