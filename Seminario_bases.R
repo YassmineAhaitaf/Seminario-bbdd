@@ -75,6 +75,15 @@ print(resultado)
 
 
 #CREANDO LA TABLA DE DIAGNOSTICOS : 
+dbExecute(con, "DROP TABLE IF EXISTS diagnosticos;")
+dbExecute(con, "Create table diagnosticos(Id_diagnostico SERIAL PRIMARY KEY, 
+          ID_Paciente integer references pacientes(ID_pacientes),
+          Fecha DATE NOT NULL,
+          Enfermedad_cardiovascular varchar(255),
+          Gravedad varchar(25) check (Gravedad in ('Moderada','Alta','Crítica')),
+          Riesgo_asociado varchar(25) check (Riesgo_asociado in ('Muerte súbita', 'Edema pulmonar','IAM') ),
+          Plan_de_seguimiento varchar(25)
+          );")
 
 
 
