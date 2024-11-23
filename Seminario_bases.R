@@ -23,7 +23,7 @@ dbListTables(con)
 tto<-read.csv("TABLAS/tratamientos.csv")
 
 tto
-dbExecute(con, "DROP TABLE IF EXISTS diagnosticos;")
+dbExecute(con, "DROP TABLE IF EXISTS tratamientos;")
 dbExecute(con, 
           "
           create table tratamientos (
