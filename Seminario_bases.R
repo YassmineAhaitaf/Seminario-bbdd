@@ -134,7 +134,7 @@ print(resultado)
 #CREANDO LA TABLA DE DIAGNOSTICOS : 
 
 dbExecute(con, "DROP TABLE IF EXISTS diagnosticos;")
-dbExecute(con, "Create table diagnosticos(Id_diagnostico SERIAL PRIMARY KEY, 
+dbExecute(con, "CREATE TABLE diagnosticos(Id_diagnostico SERIAL PRIMARY KEY, 
           ID_Paciente integer references pacientes(ID_pacientes),
           Fecha DATE NOT NULL,
           Enfermedad_cardiovascular varchar(255),
@@ -182,7 +182,7 @@ dbExecute(con,"Insert into diagnosticos values(001,001,'2024-06-14','Hypertensi�
 
 #PREGUNTA : ¿ QUE TRATAMIENTO TIENE MAYOR EXITO EN PACIENTES CON RIESGO ASOCIADO DE MUERTE SÚBITA?
 
-tto_riesgo<-dbGetQuery(con , "SELECT t.tipo_tratamiento , COUNT(*) AS frecuencia 
+tto_riesgo <- dbGetQuery(con , "SELECT t.tipo_tratamiento , COUNT(*) AS frecuencia 
 FROM tratamientos t JOIN diagnosticos d 
 ON t.id_paciente = d.ID_pacientes
 WHERE d.Riesgo_asociado = 'Muerte súbita'
