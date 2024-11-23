@@ -79,7 +79,7 @@ VALUES
 
 
 #CREANDO LA TABLA DE PACIENTES :
-dbExecute(con, "DROP TABLE IF EXISTS pacientes;")
+dbExecute(con, "DROP TABLE IF EXISTS pacientes cascade;")
 dbExecute(con,"CREATE TABLE pacientes(ID_pacientes SERIAL PRIMARY KEY,
           Nombre varchar(100) not null, 
           Edad integer CHECK (edad >= 0),
@@ -109,30 +109,48 @@ dbExecute(con,"insert into pacientes values (001, 'Thomas Johnston', 64, 'M', 21
           (015,'John Pachec0',48,'F',36.2,'141/96',171,'No','No','Sí'),
           (016,'Joshua Hernandez', 50, 'M',28.4,'134/82',186,'Sí','No','Sí'),
           (017, 'Ryan Baker',76,'M',33.9,'136/89',226,'No','No','No'),
-          (018, 'Kathleen Miller', 68,'F',18.2,'141/88', null,'No','Sí','No')")
+          (018, 'Kathleen Miller', 68,'F',18.2,'141/88', null,'No','Sí','No'),
+          (019,'Dr Candace Guerrero',62,'F',30.9,'145/96', 211, 'Sí', 'No', 'Sí'),
+          (020, 'Duane Mcmillan', 53, 'M', 41.9, '152/88', 214, 'Sí', 'Sí', 'Sí'),
+          (021, 'Matthew Walker', 77, 'F', 31.2, '155/83', 164,'No', 'Sí', 'No'),
+          (022,'Zachary Byrd', 62, 'M',39.0, '152/99',187, 'Sí', 'No', 'No'),
+          (023, 'Joyce Figueroa', 41, 'M', 21.8, '132/83', 197, 'Sí', 'Sí', 'Sí'),
+          (024,'Gerald Patel',42,'F', 23.8, '158/100' , 226, 'No', 'No', 'Sí'),
+          (025,'Rhonda Jones', 47, 'M', 22.3, '150/82', 253, 'Sí', 'Sí', 'No'),
+          (026, 'Lauren Garcia', 73, 'M', 32.1, '127/92', 157, 'No', 'No', 'Sí'),
+          (027, 'Brian Wright', 53, 'M', 28.0, '124/95',254, 'No', 'No', 'Sí'),
+          (028, 'Daniel Allen', 68, 'M', 28.7, '131/92', 179, 'Sí', 'Sí', 'Sí' ),
+          (029, 'Travis Bishon', 73, 'M', 33.8, '157/94', 169, 'Sí','No','No'),
+          (030,'Morgan Walsh', 84,'M', 45.2, '125/92', 209, 'Sí', 'Sí', 'Sí' ),
+          (031, 'Laarbi Nejar', 66, 'M', 33.6, '149/97', 211, 'Sí', 'Sí', 'No'),
+          (032, 'Samira Boueza', 61, 'F',14.5, '157/96', 199, 'Sí', 'No', 'Sí'),
+          (033, 'Tibari Khelkhoul', 74, 'M', 20.5, '145/87', 219,'No','Sí','Sí'),
+          (034, 'Nasera Elmeqali', 85, 'F', 15.7,'127/80', 158, 'No', 'Sí','No'),
+          (035, 'Lalla Menana', 44, 'F', 19.6, '125/96', 159, 'No', 'No','Sí');")
 resultado <- dbGetQuery(con, "SELECT * FROM pacientes;")
 print(resultado)
 
 
 #CREANDO LA TABLA DE DIAGNOSTICOS : 
+
 dbExecute(con, "DROP TABLE IF EXISTS diagnosticos;")
 dbExecute(con, "Create table diagnosticos(Id_diagnostico SERIAL PRIMARY KEY, 
           ID_Paciente integer references pacientes(ID_pacientes),
           Fecha DATE NOT NULL,
           Enfermedad_cardiovascular varchar(255),
           Gravedad varchar(25) check (Gravedad in ('Moderada','Alta','Crítica')),
-          Riesgo_asociado varchar(25) check (Riesgo_asociado in ('Muerte súbita', 'Edema pulmonar','IAM') ),
-          Plan_de_seguimiento varchar(25)
+          Riesgo_asociado varchar(25) check (Riesgo_asociado in ('Muerte súbita', 'Edema pulmonar','IAM','ACV','Angina de pecho') ),
+          Plan_de_seguimiento varchar(50)
           );")
 #Agregando valores a la tabla diagnosticos:
-dbExecute(con,"Insert into diagnosticos values(001,001,'14-06-2024','Hypertensión Arterial','Alta','Muerte súbita','Hospitalización recurrente'),
-          (002, 002, '11-06-2013','Hipertensión Arterial','Alta','Edema pulmonar','Rehabilitación cardiovascular'),
-          (003, 003, '10-06-2021','Infarta Agudo de Miocardio','Crítica','Muerte súbita','Consulta trimestral'),
-          (004, 004, '04-03-2021','Hipertensión Arterial','Crítica','Muerte súbita','Consulta trimestral'),
-          (005, 005, '16-01-2022','Hipertensión Arterial','Alta','ACV','Control semestral de lípidos'),
-          (006, 006, '21-04-2024','Hipertensión Arterial','Crítica','Angina de pecho','Rehabilitación cardiovascular'),
-          (007, 007, '06-01-2022','Insuficiencia Cardíaca','Moderada','Mue,ta súbita','Seguimiento anual'),
-          (008, 008, '26-02-2021','Insuficiencia Cardíaca','Moderada','IAM','consulta trimestral'),
+dbExecute(con,"Insert into diagnosticos values(001,001,'2024-06-14','Hypertensión Arterial','Alta','Muerte súbita','Hospitalización recurrente'),
+          (002, 002, '2013-06-11','Hipertensión Arterial','Alta','Edema pulmonar','Rehabilitación cardiovascular'),
+          (003, 003, '2021-06-10','Infarta Agudo de Miocardio','Crítica','Muerte súbita','Consulta trimestral'),
+          (004, 004, '2021-03-04','Hipertensión Arterial','Crítica','Muerte súbita','Consulta trimestral'),
+          (005, 005, '2022-01-16','Hipertensión Arterial','Alta','ACV','Control semestral de lípidos'),
+          (006, 006, '2024-04-21','Hipertensión Arterial','Crítica','Angina de pecho','Rehabilitación cardiovascular'),
+          (007, 007, '2022-01-06','Insuficiencia Cardíaca','Moderada','Muerte súbita','Seguimiento anual'),
+          (008, 008, '2021-02-26','Insuficiencia Cardíaca','Moderada','IAM','consulta trimestral'),
           (009, 009, '2021-12-24', 'Hipercolesterolemia', 'Moderada', 'IAM', 'Seguimiento anual' ),
           (010, 010, '2020-03-25','Insuficiencia Cardíaca', 'Crítica', 'IAM','Rehabilitación cardiovascular'),
           (011, 011, '2022-06-25', 'Infarto Agudo de Miocardio', 'Alta', 'Angina de pecho', 'Seguimiento anual'),
