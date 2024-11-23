@@ -39,6 +39,7 @@ dbExecute(con,
 
 
 
+
 #AGREGANDO LOS VALORES A LA TABLA TRATAMIENTOS :
 dbExecute(con,"INSERT INTO tratamientos (id_paciente, tipo_tratamiento, detalle, duracion_meses, frecuencia, resultado_esperado)
 VALUES 
@@ -193,6 +194,7 @@ GROUP BY t.tipo_tratamiento
 ORDER BY frecuencia DESC;")
 
 View(tto_riesgo)
+print(tto_riesgo)
 
 SELECT t.tipo_tratamiento , COUNT(*) AS frecuencia 
 FROM tratamientos t JOIN diagnosticos d 
