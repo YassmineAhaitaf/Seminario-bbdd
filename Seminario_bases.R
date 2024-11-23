@@ -23,6 +23,7 @@ dbListTables(con)
 tto<-read.csv("TABLAS/tratamientos.csv")
 
 tto
+
 dbExecute(con, "DROP TABLE IF EXISTS tratamientos;")
 dbExecute(con, 
           "
@@ -34,7 +35,9 @@ dbExecute(con,
           duracion_meses smallint check (duracion_meses >=0 and duracion_meses<=24) , 
           frecuencia varchar(30) check (frecuencia in ('Diario','Única','Semanal','Mensual')) , 
           resultado_esperado varchar(70) not null 
-          )" )
+          );" )
+
+
 
 #AGREGANDO LOS VALORES A LA TABLA TRATAMIENTOS :
 dbExecute(con,"INSERT INTO tratamientos (id_paciente, tipo_tratamiento, detalle, duracion_meses, frecuencia, resultado_esperado)
@@ -177,7 +180,7 @@ dbExecute(con,"Insert into diagnosticos values(001,001,'2024-06-14','Hypertensi�
           (032, 032, '2024-07-10', 'Infarto Agudo de Miocardio', 'Crítica', 'ACV', 'Hospitalización recurrente'),
           (033, 033, '2023-01-14', 'Hipercolesterolemia', 'Alta', 'ACV', 'Rehabilitación cardiovascular'),
           (034, 034, '2023-10-29', 'Hipercolesterolemia','Alta', 'IAM', 'Rehabilitación cardiovascular'),
-          (035, 035, '2021-01-04', 'Hipertensión Arterial', 'Crítica', 'ACV', 'Control semestral de lípidos')") 
+          (035, 035, '2021-01-04', 'Hipertensión Arterial', 'Crítica', 'ACV', 'Control semestral de lípidos');") 
 
 
 #PREGUNTA : ¿ QUE TRATAMIENTO TIENE MAYOR EXITO EN PACIENTES CON RIESGO ASOCIADO DE MUERTE SÚBITA?
@@ -191,5 +194,13 @@ ORDER BY frecuencia DESC;")
 
 View(tto_riesgo)
 
+SELECT t.tipo_tratamiento , COUNT(*) AS frecuencia 
+FROM tratamientos t JOIN diagnosticos d 
+ON t.id_paciente = d.ID_pacientes
+WHERE d.Riesgo_asociado = 'Muerte súbita'
+GROUP BY t.tipo_tratamiento
+ORDER BY frecuencia DESC;
 
+dbisValid(con)
+dbListTables(con)
 
