@@ -125,6 +125,15 @@ dbExecute(con, "Create table diagnosticos(Id_diagnostico SERIAL PRIMARY KEY,
           Plan_de_seguimiento varchar(25)
           );")
 
+dbExecute(con,"Insert into diagnosticos values(001,001,'14-06-2024','Hypertensión Arterial','Alta','Muerte súbita','Hospitalización recurrente'),
+          (002,002,'11-06-2013','Hipertensión Arterial','Alta','Edema pulmonar','Rehabilitación cardiovascular'),
+          (003,003,'10-06-2021','Infarta Agudo de Miocardio','Crítica','Muerte súbita','Consulta trimestral'),
+          (004,004,'04-03-2021','Hipertensión Arterial','Crítica','Muerte súbita','Consulta trimestral'),
+          (005,005,'16-01-2022','Hipertensión Arterial','Alta','ACV','Control semestral de lípidos'),
+          (006,006,'21-04-2024','Hipertensión Arterial','Crítica','Angina de pecho','Rehabilitación cardiovascular'),
+          (007,007,'06-01-2022','Insuficiencia Cardíaca','Moderada','Mue,ta súbita','Seguimiento anual'),
+          (008,008,'26-02-2021','Insuficiencia Cardíaca','Moderada','IAM','consulta trimestral')") 
+
 
 #PREGUNTA : ¿ QUE TRATAMIENTO TIENE MAYOR EXITO EN PACIENTES CON RIESGO ASOCIADO DE MUERTE SÚBITA?
 
