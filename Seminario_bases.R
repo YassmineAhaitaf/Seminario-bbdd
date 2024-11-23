@@ -12,7 +12,7 @@ library(RPostgres)
 con <- dbConnect(RPostgres::Postgres(),
                  dbname = "postgres",  
                  host = "localhost",          
-                 port = 55708,                  
+                 port = 56508,               
                  user = "postgres",          
                  password = "postgres")
 
@@ -24,7 +24,7 @@ tto<-read.csv("TABLAS/tratamientos.csv")
 
 tto
 
-tratamientos <- dbExecute(con, 
+dbExecute(con, 
           "
           create table tratamientos (
           id_tratamiento SERIAL PRIMARY KEY , 
