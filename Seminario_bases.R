@@ -24,7 +24,7 @@ tto<-read.csv("TABLAS/tratamientos.csv")
 
 tto
 
-tratamientos<-dbExecute(con, 
+tratamientos <- dbExecute(con, 
           "
           create table tratamientos (
           id_tratamiento SERIAL PRIMARY KEY , 
