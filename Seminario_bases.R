@@ -212,3 +212,38 @@ print(tto_riesgo)
 dbisValid(con)
 dbListTables(con)
 
+
+#PREGUNTA: ¿Qué pacientes tienen un diagnóstico de gravedad "Crítica", un tratamiento quirúrgico y antecedentes familiares?
+
+# Mostrar los resultados
+print(pacientes_fumadores)
+View(pacientes_fumadores)
+
+pacientes_criticos_quiro <- dbGetQuery(con, "
+    SELECT p.ID_pacientes, p.Nombre, p.Edad, p.Genero, p.Antecedentes_familiar , d.Gravedad, t.tipo_tratamiento
+    FROM pacientes p
+    JOIN diagnosticos d ON p.ID_pacientes = d.ID_Paciente
+    JOIN tratamientos t ON p.ID_pacientes = t.id_paciente
+    WHERE d.Gravedad = 'Crítica'
+    AND t.tipo_tratamiento = 'Intervención Quirúrgica'
+    AND p.Antecedentes_familiar  = 'Sí';
+")
+
+# Mostrar los resultados
+print(pacientes_criticos_quiro)
+View(pacientes_criticos_quiro)
+
+#PREGUNTA: ¿Qué pacientes tienen un diagnóstico de "Insuficiencia Cardíaca" con gravedad "Alta" y además son fumadores?
+
+pacientes_fumadores <- dbGetQuery(con, "
+    SELECT p.ID_pacientes, p.Nombre, p.Edad, p.Genero, p.Fumador, d.Enfermedad_cardiovascular, d.Gravedad
+    FROM pacientes p
+    JOIN diagnosticos d ON p.ID_pacientes = d.ID_Paciente
+    WHERE d.Enfermedad_cardiovascular =  'Insuficiencia Cardíaca'
+    AND d.Gravedad = 'Alta'
+    AND p.Fumador = 'Sí';
+")
+
+# Mostrar los resultados
+print(pacientes_fumadores)
+View(pacientes_fumadores)
