@@ -29,7 +29,7 @@ dbExecute(con,
           "
           create table tratamientos (
           id_tratamiento SERIAL PRIMARY KEY , 
-          id_paciente varchar(50),
+          ID_Paciente integer references pacientes(ID_pacientes),
           tipo_tratamiento varchar(50),
           detalle varchar(50),
           duracion_meses smallint check (duracion_meses >=0 and duracion_meses<=24) , 
@@ -44,41 +44,41 @@ dbExecute(con,
 #AGREGANDO LOS VALORES A LA TABLA TRATAMIENTOS :
 dbExecute(con,"INSERT INTO tratamientos (id_paciente, tipo_tratamiento, detalle, duracion_meses, frecuencia, resultado_esperado)
 VALUES 
-('P001', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 7, 'Diario', 'Reducir colesterol'),
-('P002', 'Farmacológico', 'Atorvastatina', 16, 'Diario', 'Reducir colesterol'),
-('P003', 'Intervención Quirúrgica', 'Colocación de Stent', 21, 'Única', 'Reducir colesterol'),
-('P004', 'Farmacológico', 'Bisoprolol', 11, 'Única', 'Mejorar flujo sanguíneo'),
-('P005', 'Farmacológico', 'Aspirina', 19, 'Diario', 'Reducir presión arterial'),
-('P006', 'Intervención Quirúrgica', 'Bypass Coronario', 24, 'Diario', 'Reducir presión arterial'),
-('P007', 'Farmacológico', 'Atorvastatina', 9, 'Diario', 'Mejorar flujo sanguíneo'),
-('P008', 'Farmacológico', 'Metformina', 10, 'Diario', 'Mejorar flujo sanguíneo'),
-('P009', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 19, 'Diario', 'Reducir colesterol'),
-('P010', 'Intervención Quirúrgica', 'Colocación de Stent', 18, 'Única', 'Reducir colesterol'),
-('P011', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 4, 'Única', 'Reducir colesterol'),
-('P012', 'Farmacológico', 'Losartán', 13, 'Semanal', 'Reducir colesterol'),
-('P013', 'Farmacológico', 'Aspirina', 15, 'Única', 'Mejorar flujo sanguíneo'),
-('P014', 'Cambio de Estilo de Vida', 'Reducción de Sodio', 20, 'Única', 'Reducir colesterol'),
-('P015', 'Cambio de Estilo de Vida', 'Dieta Mediterránea', 16, 'Diario', 'Reducir presión arterial'),
-('P016', 'Cambio de Estilo de Vida', 'Dieta Mediterránea', 19, 'Semanal', 'Mejorar flujo sanguíneo'),
-('P017', 'Intervención Quirúrgica', 'Colocación de Stent', 23, 'Semanal', 'Mejorar flujo sanguíneo'),
-('P018', 'Farmacológico', 'Aspirina', 5, 'Semanal', 'Reducir colesterol'),
-('P019', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 6, 'Diario', 'Reducir colesterol'),
-('P020', 'Cambio de Estilo de Vida', 'Reducción de Sodio', 8, 'Diario', 'Reducir presión arterial'),
-('P021', 'Intervención Quirúrgica', 'Bypass Coronario', 7, 'Diario', 'Reducir presión arterial'),
-('P022', 'Intervención Quirúrgica', 'Colocación de Stent', 21, 'Única', 'Reducir colesterol'),
-('P023', 'Intervención Quirúrgica', 'Colocación de Stent', 18, 'Única', 'Mejorar flujo sanguíneo'),
-('P024', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 9, 'Diario', 'Mejorar flujo sanguíneo'),
-('P025', 'Cambio de Estilo de Vida', 'Reducción de Sodio', 3, 'Semanal', 'Mejorar flujo sanguíneo'),
-('P026', 'Farmacológico', 'Bisoprolol', 8, 'Única', 'Mejorar flujo sanguíneo'),
-('P027', 'Farmacológico', 'Bisoprolol', 20, 'Diario', 'Reducir colesterol'),
-('P028', 'Farmacológico', 'Bisoprolol', 17, 'Semanal', 'Mejorar flujo sanguíneo'),
-('P029', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 22, 'Diario', 'Mejorar flujo sanguíneo'),
-('P030', 'Cambio de Estilo de Vida', 'Reducción de Sodio', 8, 'Diario', 'Reducir colesterol'),
-('P031', 'Farmacológico', 'Aspirina', 1, 'Semanal', 'Reducir presión arterial'),
-('P032', 'Intervención Quirúrgica', 'Bypass Coronario', 7, 'Semanal', 'Reducir colesterol'),
-('P033', 'Intervención Quirúrgica', 'Bypass Coronario', 21, 'Semanal', 'Reducir colesterol'),
-('P034', 'Farmacológico', 'Metformina', 16, 'Diario', 'Reducir colesterol'),
-('P035', 'Farmacológico', 'Metformina', 13, 'Semanal', 'Reducir presión arterial');
+('001', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 7, 'Diario', 'Reducir colesterol'),
+('002', 'Farmacológico', 'Atorvastatina', 16, 'Diario', 'Reducir colesterol'),
+('003', 'Intervención Quirúrgica', 'Colocación de Stent', 21, 'Única', 'Reducir colesterol'),
+('004', 'Farmacológico', 'Bisoprolol', 11, 'Única', 'Mejorar flujo sanguíneo'),
+('005', 'Farmacológico', 'Aspirina', 19, 'Diario', 'Reducir presión arterial'),
+('006', 'Intervención Quirúrgica', 'Bypass Coronario', 24, 'Diario', 'Reducir presión arterial'),
+('007', 'Farmacológico', 'Atorvastatina', 9, 'Diario', 'Mejorar flujo sanguíneo'),
+('008', 'Farmacológico', 'Metformina', 10, 'Diario', 'Mejorar flujo sanguíneo'),
+('009', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 19, 'Diario', 'Reducir colesterol'),
+('010', 'Intervención Quirúrgica', 'Colocación de Stent', 18, 'Única', 'Reducir colesterol'),
+('011', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 4, 'Única', 'Reducir colesterol'),
+('012', 'Farmacológico', 'Losartán', 13, 'Semanal', 'Reducir colesterol'),
+('013', 'Farmacológico', 'Aspirina', 15, 'Única', 'Mejorar flujo sanguíneo'),
+('014', 'Cambio de Estilo de Vida', 'Reducción de Sodio', 20, 'Única', 'Reducir colesterol'),
+('015', 'Cambio de Estilo de Vida', 'Dieta Mediterránea', 16, 'Diario', 'Reducir presión arterial'),
+('016', 'Cambio de Estilo de Vida', 'Dieta Mediterránea', 19, 'Semanal', 'Mejorar flujo sanguíneo'),
+('017', 'Intervención Quirúrgica', 'Colocación de Stent', 23, 'Semanal', 'Mejorar flujo sanguíneo'),
+('018', 'Farmacológico', 'Aspirina', 5, 'Semanal', 'Reducir colesterol'),
+('019', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 6, 'Diario', 'Reducir colesterol'),
+('020', 'Cambio de Estilo de Vida', 'Reducción de Sodio', 8, 'Diario', 'Reducir presión arterial'),
+('021', 'Intervención Quirúrgica', 'Bypass Coronario', 7, 'Diario', 'Reducir presión arterial'),
+('022', 'Intervención Quirúrgica', 'Colocación de Stent', 21, 'Única', 'Reducir colesterol'),
+('023', 'Intervención Quirúrgica', 'Colocación de Stent', 18, 'Única', 'Mejorar flujo sanguíneo'),
+('024', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 9, 'Diario', 'Mejorar flujo sanguíneo'),
+('025', 'Cambio de Estilo de Vida', 'Reducción de Sodio', 3, 'Semanal', 'Mejorar flujo sanguíneo'),
+('026', 'Farmacológico', 'Bisoprolol', 8, 'Única', 'Mejorar flujo sanguíneo'),
+('027', 'Farmacológico', 'Bisoprolol', 20, 'Diario', 'Reducir colesterol'),
+('028', 'Farmacológico', 'Bisoprolol', 17, 'Semanal', 'Mejorar flujo sanguíneo'),
+('029', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 22, 'Diario', 'Mejorar flujo sanguíneo'),
+('030', 'Cambio de Estilo de Vida', 'Reducción de Sodio', 8, 'Diario', 'Reducir colesterol'),
+('031', 'Farmacológico', 'Aspirina', 1, 'Semanal', 'Reducir presión arterial'),
+('032', 'Intervención Quirúrgica', 'Bypass Coronario', 7, 'Semanal', 'Reducir colesterol'),
+('033', 'Intervención Quirúrgica', 'Bypass Coronario', 21, 'Semanal', 'Reducir colesterol'),
+('034', 'Farmacológico', 'Metformina', 16, 'Diario', 'Reducir colesterol'),
+('035', 'Farmacológico', 'Metformina', 13, 'Semanal', 'Reducir presión arterial');
 ")
 
 
@@ -188,22 +188,26 @@ dbExecute(con,"Insert into diagnosticos values(001,001,'2024-06-14','Hypertensi�
 
 #PREGUNTA : ¿ QUE TRATAMIENTO TIENE MAYOR EXITO EN PACIENTES CON RIESGO ASOCIADO DE MUERTE SÚBITA?
 
-tto_riesgo <- dbGetQuery(con , "SELECT t.tipo_tratamiento , COUNT(*) AS frecuencia 
-FROM tratamientos t JOIN diagnosticos d 
-ON t.id_paciente = d.ID_pacientes
-WHERE d.Riesgo_asociado = 'Muerte súbita'
+tto_riesgo <- dbGetQuery(con,"SELECT t.tipo_tratamiento, COUNT(*) AS frecuencia
+FROM tratamientos t
+JOIN diagnosticos d
+ON t.id_paciente = d.id_paciente
+WHERE d.riesgo_asociado = 'Muerte súbita'
 GROUP BY t.tipo_tratamiento
 ORDER BY frecuencia DESC;")
 
 View(tto_riesgo)
 print(tto_riesgo)
 
+<<<<<<< HEAD
 #SELECT t.tipo_tratamiento , COUNT(*) AS frecuencia 
 #FROM tratamientos t JOIN diagnosticos d 
 #ON t.id_paciente = d.ID_pacientes
 #WHERE d.Riesgo_asociado = 'Muerte súbita'
 #GROUP BY t.tipo_tratamiento
 #ORDER BY frecuencia DESC;
+=======
+>>>>>>> edc90eea24b54ebda58cfc8a68a601c08f7473f1
 
 dbisValid(con)
 dbListTables(con)
