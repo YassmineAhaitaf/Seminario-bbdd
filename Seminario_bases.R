@@ -126,6 +126,15 @@ dbExecute(con, "Create table diagnosticos(Id_diagnostico SERIAL PRIMARY KEY,
           );")
 
 
+#PREGUNTA : ¿ QUE TRATAMIENTO TIENE MAYOR EXITO EN PACIENTES CON RIESGO ASOCIADO DE MUERTE SÚBITA?
 
+tto_riesgo<-dbGetQuery(con , "SELECT t.tipo_tratamiento , COUNT(*) AS frecuencia 
+FROM tratamientos t JOIN diagnosticos d 
+ON t.id_paciente = d.ID_pacientes
+WHERE d.Riesgo_asociado = 'Muerte súbita'
+GROUP BY t.tipo_tratamiento
+ORDER BY frecuencia DESC;")
+
+View(tto_riesgo)
 
 
