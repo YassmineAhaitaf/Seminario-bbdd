@@ -12,7 +12,7 @@ library(RPostgres)
 con <- dbConnect(RPostgres::Postgres(),
                  dbname = "postgres",  
                  host = "localhost",          
-                 port = 56508,               
+                 port = 56914,               
                  user = "postgres",          
                  password = "postgres")
 
@@ -23,7 +23,7 @@ dbListTables(con)
 tto<-read.csv("TABLAS/tratamientos.csv")
 
 tto
-
+dbExecute(con, "DROP TABLE IF EXISTS diagnosticos;")
 dbExecute(con, 
           "
           create table tratamientos (
@@ -35,6 +35,46 @@ dbExecute(con,
           frecuencia varchar(30) check (frecuencia in ('Diario','Única','Semanal','Mensual')) , 
           resultado_esperado varchar(70) not null 
           )" )
+
+#AGREGANDO LOS VALORES A LA TABLA TRATAMIENTOS :
+dbExecute(con,"INSERT INTO tratamientos (id_paciente, tipo_tratamiento, detalle, duracion_meses, frecuencia, resultado_esperado)
+VALUES 
+('P001', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 7, 'Diario', 'Reducir colesterol'),
+('P002', 'Farmacológico', 'Atorvastatina', 16, 'Diario', 'Reducir colesterol'),
+('P003', 'Intervención Quirúrgica', 'Colocación de Stent', 21, 'Única', 'Reducir colesterol'),
+('P004', 'Farmacológico', 'Bisoprolol', 11, 'Única', 'Mejorar flujo sanguíneo'),
+('P005', 'Farmacológico', 'Aspirina', 19, 'Diario', 'Reducir presión arterial'),
+('P006', 'Intervención Quirúrgica', 'Bypass Coronario', 24, 'Diario', 'Reducir presión arterial'),
+('P007', 'Farmacológico', 'Atorvastatina', 9, 'Diario', 'Mejorar flujo sanguíneo'),
+('P008', 'Farmacológico', 'Metformina', 10, 'Diario', 'Mejorar flujo sanguíneo'),
+('P009', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 19, 'Diario', 'Reducir colesterol'),
+('P010', 'Intervención Quirúrgica', 'Colocación de Stent', 18, 'Única', 'Reducir colesterol'),
+('P011', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 4, 'Única', 'Reducir colesterol'),
+('P012', 'Farmacológico', 'Losartán', 13, 'Semanal', 'Reducir colesterol'),
+('P013', 'Farmacológico', 'Aspirina', 15, 'Única', 'Mejorar flujo sanguíneo'),
+('P014', 'Cambio de Estilo de Vida', 'Reducción de Sodio', 20, 'Única', 'Reducir colesterol'),
+('P015', 'Cambio de Estilo de Vida', 'Dieta Mediterránea', 16, 'Diario', 'Reducir presión arterial'),
+('P016', 'Cambio de Estilo de Vida', 'Dieta Mediterránea', 19, 'Semanal', 'Mejorar flujo sanguíneo'),
+('P017', 'Intervención Quirúrgica', 'Colocación de Stent', 23, 'Semanal', 'Mejorar flujo sanguíneo'),
+('P018', 'Farmacológico', 'Aspirina', 5, 'Semanal', 'Reducir colesterol'),
+('P019', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 6, 'Diario', 'Reducir colesterol'),
+('P020', 'Cambio de Estilo de Vida', 'Reducción de Sodio', 8, 'Diario', 'Reducir presión arterial'),
+('P021', 'Intervención Quirúrgica', 'Bypass Coronario', 7, 'Diario', 'Reducir presión arterial'),
+('P022', 'Intervención Quirúrgica', 'Colocación de Stent', 21, 'Única', 'Reducir colesterol'),
+('P023', 'Intervención Quirúrgica', 'Colocación de Stent', 18, 'Única', 'Mejorar flujo sanguíneo'),
+('P024', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 9, 'Diario', 'Mejorar flujo sanguíneo'),
+('P025', 'Cambio de Estilo de Vida', 'Reducción de Sodio', 3, 'Semanal', 'Mejorar flujo sanguíneo'),
+('P026', 'Farmacológico', 'Bisoprolol', 8, 'Única', 'Mejorar flujo sanguíneo'),
+('P027', 'Farmacológico', 'Bisoprolol', 20, 'Diario', 'Reducir colesterol'),
+('P028', 'Farmacológico', 'Bisoprolol', 17, 'Semanal', 'Mejorar flujo sanguíneo'),
+('P029', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 22, 'Diario', 'Mejorar flujo sanguíneo'),
+('P030', 'Cambio de Estilo de Vida', 'Reducción de Sodio', 8, 'Diario', 'Reducir colesterol'),
+('P031', 'Farmacológico', 'Aspirina', 1, 'Semanal', 'Reducir presión arterial'),
+('P032', 'Intervención Quirúrgica', 'Bypass Coronario', 7, 'Semanal', 'Reducir colesterol'),
+('P033', 'Intervención Quirúrgica', 'Bypass Coronario', 21, 'Semanal', 'Reducir colesterol'),
+('P034', 'Farmacológico', 'Metformina', 16, 'Diario', 'Reducir colesterol'),
+('P035', 'Farmacológico', 'Metformina', 13, 'Semanal', 'Reducir presión arterial');
+")
 
 
 
