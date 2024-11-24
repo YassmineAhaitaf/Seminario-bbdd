@@ -358,24 +358,24 @@ SELECT *
 FROM ConsultaFiltrada
 WHERE Descripcion_Genero = 'Masculino';
 
+```
+
+```{sql , connection = con }
 SELECT * FROM Masculino;
+```
 
+```{sql , connection = con }
 --Para el genero femenino 
-
 
 CREATE VIEW Femenino AS
 SELECT * 
 FROM ConsultaFiltrada
 WHERE Descripcion_Genero = 'Femenino';
-
-SELECT * FROM Femenino;
-
-
-
-
-
 ```
 
+```{sql , connection = con }
+SELECT * FROM Femenino;
+```
 Filtramos los pacientes según su categoría de edad : 
 ```{sql , connection = con }
 
