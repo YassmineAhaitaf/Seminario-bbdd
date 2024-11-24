@@ -36,7 +36,7 @@ Estos datos se corresponden a un ejemplo sintético (*i.e.* ficticio) de **epide
 En total se crearán tres **tablas**.
 
 1.  **Tabla pacientes**: Contendrá los datos de los pacientes.
-2.  **Tabla diagnostico** : 
+2.  **Tabla diagnostico** : Contendrá el resultado del diagnostico. 
 3.  **Tabla tratamientos**: Contendrá los tratamientos que se administran a los pacientes.
 
 ## Objetivos/Preguntas
