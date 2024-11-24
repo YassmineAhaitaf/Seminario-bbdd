@@ -145,7 +145,7 @@ print(resultado)
 dbExecute(con, "DROP TABLE IF EXISTS diagnosticos;")
 dbExecute(con, "CREATE TABLE diagnosticos(Id_diagnostico SERIAL PRIMARY KEY, 
           ID_Paciente integer references pacientes(ID_pacientes),
-          Fecha DATE NOT NULL,
+          Fecha DATE NOT NULL check (Fecha < current_date),
           Enfermedad_cardiovascular varchar(255),
           Gravedad varchar(25) check (Gravedad in ('Moderada','Alta','Crítica')),
           Riesgo_asociado varchar(25) check (Riesgo_asociado in ('Muerte súbita', 'Edema pulmonar','IAM','ACV','Angina de pecho') ),
