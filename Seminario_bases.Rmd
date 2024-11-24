@@ -420,6 +420,74 @@ where tipo_tratamiento = 'Intervención Quirúrgica';
 
 Del total de 32 pacientes , 2 pacientes (adultos mayores) presentan un diagnóstico de *gravedad crítico* , *antecedentes familiares* y han tenido que recorrer a una *intervención quirúrgica* , o un porcentaje de **6.25%** del total de pacientes . 
 
+### Pregunta 4 :
+
+1. ¿Cuántos pacientes con un IMC mayor a 30 tienen diagnósticos con riesgo asociado de "Edema pulmonar"?
+
+
+Primero , vamos a filtrar los pacientes con riesgo asociado de **Edema Pulmonar** y clasificar los IMCs . 
+Vamos a crear una vista que nos permitirá trabajr con los mismos datos de aquí adelante : 
+
+
+
+```{sql, connection=con}
+CREATE VIEW PacientesEdema AS
+SELECT 
+    p.ID_pacientes, 
+    p.Nombre, 
+    p.IMC ,  
+	CASE 
+        WHEN p.IMC < 18.5 THEN 'Bajo peso'
+        WHEN p.IMC BETWEEN 18.5 AND 24.9 THEN 'Normal'
+        WHEN p.IMC BETWEEN 25 AND 29.9 THEN 'Sobrepeso'
+        WHEN p.IMC >= 30 THEN 'Obesidad'
+    END AS Categoria_IMC,
+    p.Edad,CASE 
+           WHEN p.Edad BETWEEN 18 AND 30 THEN 'Joven'
+           WHEN p.Edad BETWEEN 31 AND 50 THEN 'Adulto'
+           WHEN p.Edad BETWEEN 51 AND 70 THEN 'Adulto Mayor'
+           WHEN p.Edad > 70 THEN 'Anciano'
+           ELSE 'No especificada'
+       END AS Categoria_Edad , 
+    p.Genero,
+    d.Riesgo_asociado,
+FROM pacientes p
+JOIN diagnosticos d ON p.ID_pacientes = d.ID_Paciente
+AND d.Riesgo_asociado = 'Edema pulmonar';
+
+```
+
+
+```{sql , connection = con}
+SELECT * FROM PacientesEdema;
+```
+
+7 pacientes de diferentes IMCs , en una categoría de edad de adultos mayores o ancianos ,  del total de 32 pacientes presentan un riesgo de **Edema Pulmonar** , o un **21.87%** . 
+
+
+Ahora , vamos a visualizar los pacientes con riesgo de edema tienen un IMC>30 , visualizando su género y su categoría de edad : 
+```{sql , connection = con}
+CREATE VIEW Edema_IMC AS 
+SELECT * FROM PacientesEdema
+WHERE IMC>30;
+
+```
+
+```{sql , connection = con}
+SELECT * FROM Edema_IMC;
+```
+
+Los pacientes con riesgo de **edema pulmonar** y con **IMC>30** son todos de género masculino , y la mayor parte de estos pacientes está categorizada como **Anciana** . 
+
+
+Finalmente , vamos a contar cúantos pacientes del total de 32 pacientes tienen riesgo de **edema pulmonar** y un **IMC>30**: 
+
+```{sql , connection = con}
+SELECT COUNT(*) FROM Edema_IMC;
+```
+
+Son 5 pacientes que presentan un riesgo asociado a **Edema Pulmonar** y que tienen un **IMC>30** , o una proporción del 71.42% del total de pacientes con riesgo de **Edema Pulmonar** y un 15.625% del total de la población de los pacientes . 
+
 
 ```{r, echo=FALSE, eval=FALSE}
 # Consultar los datos
