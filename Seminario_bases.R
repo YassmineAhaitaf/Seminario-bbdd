@@ -17,12 +17,9 @@ con <- dbConnect(RPostgres::Postgres(),
                  password = "postgres")
 
 
-dbListTables(con)
 #CREANDO LA TABLA DE TRATAMIENTOS : 
 
-tto<-read.csv("TABLAS/tratamientos.csv")
 
-tto
 
 dbExecute(con, "DROP TABLE IF EXISTS tratamientos cascade;")
 dbExecute(con, 
@@ -206,9 +203,7 @@ print(tto_riesgo)
 
 #PREGUNTA: ¿Qué pacientes tienen un diagnóstico de gravedad "Crítica", un tratamiento quirúrgico y antecedentes familiares ,en base a edad y género?
 
-# Mostrar los resultados
-print(pacientes_fumadores)
-View(pacientes_fumadores)
+
 
 pacientes_criticos_quiro <- dbGetQuery(con, "
     SELECT p.ID_pacientes, p.Nombre, p.Edad, p.Genero, p.Antecedentes_familiar , d.Gravedad, t.tipo_tratamiento
