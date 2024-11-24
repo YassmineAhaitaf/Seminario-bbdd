@@ -261,7 +261,7 @@ SELECT * FROM tratamientos;
 
 1.  ¿ QUE TRATAMIENTO TIENE MAYOR EXITO EN PACIENTES CON RIESGO ASOCIADO DE MUERTE SÚBITA (ORDENADOS)?
 
-```{´´´{sql, connection=con}
+```{sql, connection=con}
 SELECT t.tipo_tratamiento, COUNT(*) AS frecuencia
 FROM tratamientos t
 JOIN diagnosticos d
@@ -269,14 +269,14 @@ ON t.id_paciente = d.id_paciente
 WHERE d.riesgo_asociado = 'Muerte súbita'
 GROUP BY t.tipo_tratamiento
 ORDER BY frecuencia DESC;")
-´´´
+
 ```
 
 ### Pregunta 2
 
 2.¿Qué pacientes tienen un diagnóstico de "Insuficiencia Cardíaca" con gravedad "Alta" y además son fumadores?
 
-```{´´´{sql, connection=con}
+```{sql, connection=con}
 SELECT p.ID_pacientes, p.Nombre, p.Edad, p.Genero, p.Fumador, d.Enfermedad_cardiovascular, d.Gravedad
 FROM pacientes p
 JOIN diagnosticos d ON p.ID_pacientes = d.ID_Paciente
