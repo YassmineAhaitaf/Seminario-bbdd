@@ -149,7 +149,11 @@ dbExecute(con, "CREATE TABLE diagnosticos(Id_diagnostico SERIAL PRIMARY KEY,
           Enfermedad_cardiovascular varchar(255),
           Gravedad varchar(25) check (Gravedad in ('Moderada','Alta','Crítica')),
           Riesgo_asociado varchar(25) check (Riesgo_asociado in ('Muerte súbita', 'Edema pulmonar','IAM','ACV','Angina de pecho') ),
-          Plan_de_seguimiento varchar(50)
+          Plan_de_seguimiento varchar(50),
+          		CONSTRAINT fk_paciente_diag FOREIGN KEY (ID_Paciente) 
+        REFERENCES pacientes(ID_pacientes)
+        ON UPDATE CASCADE 
+        ON DELETE CASCADE
           );")
 #Agregando valores a la tabla diagnosticos:
 dbExecute(con,"Insert into diagnosticos values(001,001,'2024-06-14','Hypertensión Arterial','Alta','Muerte súbita','Hospitalización recurrente'),

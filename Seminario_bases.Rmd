@@ -58,7 +58,7 @@ Contendrá los datos de los pacientes.
 # Crear tabla 'pacientes'
 dbExecute(con, "DROP TABLE IF EXISTS pacientes cascade;")
 dbExecute(con,"CREATE TABLE pacientes(ID_pacientes SERIAL PRIMARY KEY,
-          Nombre varchar(100), 
+          Nombre varchar(100) not null, 
           Edad integer CHECK (edad >= 0),
           Genero varchar(10) check (Genero in ('M', 'F')),
           IMC decimal(3,1) check (IMC > 0),
@@ -66,8 +66,10 @@ dbExecute(con,"CREATE TABLE pacientes(ID_pacientes SERIAL PRIMARY KEY,
           Colesterol integer,
           Antecedentes_familiar varchar(3) check (Antecedentes_familiar in ('No','Sí')),
           Fumador varchar(3) check (Fumador in ('No','Sí')),
-          Diabetico varchar(3) check (Diabetico in ('No','Sí'))
-);")
+          Diabetico varchar(3) check (Diabetico in ('No','Sí')),
+          FOREIGN KEY (ID_Paciente) REFERENCES pacientes(ID_pacientes) 
+);
+")
 ```
 
 Ahora agregamos los datos de los pacientes
@@ -130,7 +132,11 @@ dbExecute(con, "Create table diagnosticos(Id_diagnostico SERIAL PRIMARY KEY,
           Enfermedad_cardiovascular varchar(255),
           Gravedad varchar(25) check (Gravedad in ('Moderada','Alta','Crítica')),
           Riesgo_asociado varchar(25) check (Riesgo_asociado in ('Muerte súbita', 'Edema pulmonar','IAM','ACV','Angina de pecho') ),
-          Plan_de_seguimiento varchar(50)
+          Plan_de_seguimiento varchar(50),
+        CONSTRAINT fk_paciente_diag FOREIGN KEY (ID_Paciente) 
+        REFERENCES pacientes(ID_pacientes)
+        ON UPDATE CASCADE 
+        ON DELETE CASCADE
           );")
 ```
 
