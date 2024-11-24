@@ -12,7 +12,7 @@ library(RPostgres)
 con <- dbConnect(RPostgres::Postgres(),
                  dbname = "postgres",  
                  host = "localhost",          
-                 port = 50549,               
+                 port = 51971,               
                  user = "postgres",          
                  password = "postgres")
 
@@ -24,7 +24,7 @@ tto<-read.csv("TABLAS/tratamientos.csv")
 
 tto
 
-dbExecute(con, "DROP TABLE IF EXISTS tratamientos;")
+dbExecute(con, "DROP TABLE IF EXISTS tratamientos cascade;")
 dbExecute(con, 
           "
           create table tratamientos (
@@ -35,7 +35,7 @@ dbExecute(con,
           duracion_meses smallint check (duracion_meses >=0 and duracion_meses<=24) , 
           frecuencia varchar(30) check (frecuencia in ('Diario','Única','Semanal','Mensual')) , 
           resultado_esperado varchar(70) not null ,
-          FOREIGN KEY (id_paciente) REFERENCES pacientes(ID_pacientes)
+          CONSTRAINT fk_paciente FOREIGN KEY (id_paciente) REFERENCES pacientes(ID_pacientes) ON UPDATE CASCADE ON DELETE CASCADE
           );" )
 
 
@@ -95,7 +95,7 @@ dbExecute(con,"CREATE TABLE pacientes(ID_pacientes SERIAL PRIMARY KEY,
           Antecedentes_familiar varchar(3) check (Antecedentes_familiar in ('No','Sí')),
           Fumador varchar(3) check (Fumador in ('No','Sí')),
           Diabetico varchar(3) check (Diabetico in ('No','Sí')),
-          FOREIGN KEY (ID_Paciente) REFERENCES pacientes(ID_pacientes)
+          FOREIGN KEY (ID_Paciente) REFERENCES pacientes(ID_pacientes) 
 );
 ")
 dbExecute(con,"insert into pacientes values (001, 'Thomas Johnston', 64, 'M', 21.4,'131/87',255,'No','No','Sí'),
