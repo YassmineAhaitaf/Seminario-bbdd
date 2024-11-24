@@ -243,6 +243,8 @@ View(pacientes_fumadores)
 #¿Cuántos pacientes con un IMC mayor a 30 tienen diagnósticos con riesgo asociado de "Edema pulmonar"?
 
 
+#esta tabla demuestra todos los pacientes que tienen riesgo de edema , y luego un IMC mayor que 30 . 
+
 IMC_edema_total <- dbGetQuery(con , "SELECT 
     p.ID_pacientes, 
     p.Nombre, 
@@ -260,6 +262,7 @@ AND p.IMC > 30
 GROUP BY p.ID_pacientes, p.Nombre, p.IMC, d.Riesgo_asociado;
 " )
 
+# esta tabla demuetsra solo cuantos pacientes tienen edema y IMC>30 
 IMC_edema_count <- dbGetQuery(con , "SELECT COUNT(*) AS pacientes_edema_pulmonar 
 FROM pacientes p 
 JOIN diagnosticos d ON p.ID_pacientes = d.ID_Paciente
