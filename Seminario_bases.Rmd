@@ -272,6 +272,9 @@ ORDER BY frecuencia DESC;")
 
 ```
 
+
+Visto el resultado de esta consulta , el tratamiento con mejor eficacia y mayor frecuencia en pacientes con un riesgo asociado a muerte súbita es el tratamiento farmacológico. 
+
 ### Pregunta 2
 
 2.¿Qué pacientes tienen un diagnóstico de "Insuficiencia Cardíaca" con gravedad "Alta" y además son fumadores?
@@ -287,18 +290,114 @@ AND p.Fumador = 'Sí';
 
 ```
 
+Aquí , vamos a ver en que proporción  presentan los fumadores entre los pacientes con **Insuficiencia cardiaca** y con **Alta Gravedad**
+
+```{sql, connection = con }
+SELECT p.ID_pacientes, p.Nombre, p.Edad, p.Genero, p.Fumador, d.Enfermedad_cardiovascular, d.Gravedad
+    FROM pacientes p
+    JOIN diagnosticos d ON p.ID_pacientes = d.ID_Paciente
+    WHERE d.Enfermedad_cardiovascular =  'Insuficiencia Cardíaca'
+    AND d.Gravedad = 'Alta';
+
+```
+
+Se deduce que los fumadores presentan el 100% de los pacientes de **Alta Gravedad** con **Insuficiencia Cardiaca** . 
+
 ### Pregunta 3
 
 3.  ¿Qué pacientes tienen un diagnóstico de gravedad "Crítica", un tratamiento quirúrgico y antecedentes familiares ,en base a edad y género?
 
-```{sql, connection=con}
+Primero , vamos a proceder a saber que pacientes tienen un diágnostico de gravedad **crítico** y **antecedentes familiares** : 
+
+```{sql , connection = con }
 SELECT p.ID_pacientes, p.Nombre, p.Edad, p.Genero, p.Antecedentes_familiar , d.Gravedad, t.tipo_tratamiento
+    FROM pacientes p
+    JOIN diagnosticos d ON p.ID_pacientes = d.ID_Paciente
+    JOIN tratamientos t ON p.ID_pacientes = t.id_paciente
+    WHERE d.Gravedad = 'Crítica'
+    AND p.Antecedentes_familiar  = 'Sí';
+
+```
+
+Analizaremos a continuación la predominancia de la **gravedad del diagnóstico y los antecedentes familiares ** en base al género de los pacientes (F o M) y en base a la edad de los pacientes: 
+Para ello , creamos una vista para poder hacer los filtrados sin necesidad de repetir las consultas generales : 
+```{sql , connection = con}
+CREATE VIEW ConsultaFiltrada AS
+
+SELECT p.ID_pacientes, 
+       p.Nombre, 
+       p.Edad, 
+       p.Genero,        
+       CASE 
+           WHEN p.Genero = 'M' THEN 'Masculino'
+           WHEN p.Genero = 'F' THEN 'Femenino'
+           ELSE 'Otro Género'
+       END AS Descripcion_Genero,
+       p.Antecedentes_familiar, 
+       d.Gravedad, 
+       t.tipo_tratamiento
 FROM pacientes p
 JOIN diagnosticos d ON p.ID_pacientes = d.ID_Paciente
 JOIN tratamientos t ON p.ID_pacientes = t.id_paciente
 WHERE d.Gravedad = 'Crítica'
-AND t.tipo_tratamiento = 'Intervención Quirúrgica'
-AND p.Antecedentes_familiar  = 'Sí';
+AND p.Antecedentes_familiar = 'Sí';
+
+
+
+```
+
+Hacemos el filtrado por género , creando vistas:
+```{sql , connection = con }
+--Para el genero masculino
+
+CREATE VIEW Masculino AS
+SELECT * 
+FROM ConsultaFiltrada
+WHERE Descripcion_Genero = 'Masculino';
+
+SELECT * FROM Masculino;
+
+--Para el genero femenino 
+
+
+CREATE VIEW Femenino AS
+SELECT * 
+FROM ConsultaFiltrada
+WHERE Descripcion_Genero = 'Femenino';
+
+SELECT * FROM Femenino;
+
+
+
+
+
+```
+
+Filtramos los pacientes según su categoría de edad : 
+```{sql , connection = con }
+SELECT *, 
+       CASE 
+           WHEN Edad BETWEEN 18 AND 30 THEN 'Joven'
+           WHEN Edad BETWEEN 31 AND 50 THEN 'Adulto'
+           WHEN Edad BETWEEN 51 AND 70 THEN 'Adulto Mayor'
+           WHEN Edad > 70 THEN 'Anciano'
+           ELSE 'No especificada'
+       END AS Categoria_Edad
+FROM ConsultaFiltrada;
+
+
+```
+
+
+
+Ahora , procedemos a saber el total de pacientes con diágnostico de gravedad **crítico** y **antecedentes familiares** han tenido que recorrer a una **intervención quirúrgica** : 
+
+```{sql, connection=con}
+SELECT ID_pacientes, Nombre, Edad, Genero, Antecedentes_familiar, Gravedad, tipo_tratamiento
+FROM ConsultaFiltrada
+WHERE Gravedad = 'Crítica'
+AND tipo_tratamiento = 'Intervención Quirúrgica'
+AND Antecedentes_familiar = 'Sí';
 
 ```
 
