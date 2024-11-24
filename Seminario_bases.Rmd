@@ -19,19 +19,14 @@ library(RPostgres)
 
 # Conectar a la base de datos PostgreSQL
 con <- dbConnect(RPostgres::Postgres(),
-<<<<<<< HEAD
-                 dbname = "postgres",  
-                 host = "localhost",          
-                 port = 52812,               
-                 user = "postgres",          
-                 password = "postgres")
-=======
+
+
                  dbname = "postgres",  # Nombre de la base de datos
                  host = "localhost",           # Dirección del host
                  port = 5432,                  # Puerto de PostgreSQL
                  user = "postgres",          # Tu usuario de PostgreSQL
                  password = "postgres")   # Tu contraseña de PostgreSQL
->>>>>>> d6a36794015567196476871b3cb7c9ab326dc564
+
 ```
 
 ## Introducción
