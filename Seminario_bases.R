@@ -97,8 +97,7 @@ dbExecute(con,"CREATE TABLE pacientes(ID_pacientes SERIAL PRIMARY KEY,
           Colesterol integer,
           Antecedentes_familiar varchar(3) check (Antecedentes_familiar in ('No','Sí')),
           Fumador varchar(3) check (Fumador in ('No','Sí')),
-          Diabetico varchar(3) check (Diabetico in ('No','Sí')),
-          FOREIGN KEY (ID_Paciente) REFERENCES pacientes(ID_pacientes) 
+          Diabetico varchar(3) check (Diabetico in ('No','Sí')), 
 );
 ")
 dbExecute(con,"insert into pacientes values (001, 'Thomas Johnston', 64, 'M', 21.4,'131/87',255,'No','No','Sí'),
