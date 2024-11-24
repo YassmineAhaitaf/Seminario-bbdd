@@ -240,6 +240,31 @@ pacientes_fumadores <- dbGetQuery(con, "
 print(pacientes_fumadores)
 View(pacientes_fumadores)
 
+#¿Cuántos pacientes con un IMC mayor a 30 tienen diagnósticos con riesgo asociado de "Edema pulmonar"?
+
+
+IMC_edema_total <- dbGetQuery(con , "SELECT 
+    p.ID_pacientes, 
+    p.Nombre, 
+    p.IMC, 
+    d.Riesgo_asociado, 
+    COUNT(*) AS r_edema,
+    (SELECT COUNT(*) 
+     FROM diagnosticos d2 
+     WHERE d2.ID_Paciente = p.ID_pacientes 
+     AND d2.Riesgo_asociado = 'Edema pulmonar') AS total_edema
+FROM pacientes p
+JOIN diagnosticos d ON p.ID_pacientes = d.ID_Paciente
+WHERE d.Riesgo_asociado = 'Edema pulmonar'
+AND p.IMC > 30
+GROUP BY p.ID_pacientes, p.Nombre, p.IMC, d.Riesgo_asociado;
+" )
+
+IMC_edema_count <- dbGetQuery(con , "SELECT COUNT(*) AS pacientes_edema_pulmonar 
+FROM pacientes p 
+JOIN diagnosticos d ON p.ID_pacientes = d.ID_Paciente
+WHERE p.IMC > 30
+AND d.Riesgo_asociado = 'Edema pulmonar';")
 
 
 # Obtener la lista de todas las tablas en la base de datos
