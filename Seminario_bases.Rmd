@@ -409,7 +409,7 @@ SELECT * FROM Edad;
 Notamos que el 60% de los casos con gravedad crítica y antecedentes familiares son adultos mayores [51,70].
 
 
-Ahora , procedemos a saber el total de pacientes con diágnostico de gravedad **crítico** y **antecedentes familiares** han tenido que recorrer a una **intervención quirúrgica** : 
+Ahora , procedemos a saber qué pacientes con diágnostico de gravedad **crítico** y **antecedentes familiares** han tenido que recorrer a una **intervención quirúrgica** : 
 
 ```{sql, connection=con}
 select * 
