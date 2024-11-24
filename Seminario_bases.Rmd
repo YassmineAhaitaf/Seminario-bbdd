@@ -9,14 +9,30 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Creando una conexión a una base de datos local usando R
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Primero , para poder ejecutar los comandos de SQL en un documento de RMarkdown , deberemos utilizar los paquetes DBI y RPostgres
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Incluimos el código que viene a continuación que nos ha permitido conseguir generar una conexión local. 
 
-```{r cars}
-summary(cars)
+```{r echo=TRUE}
+#Cargar el paquete RPostgres
+
+install.packages("DBI")
+install.packages("RPostgres")
+
+library(DBI)
+library(RPostgres)
+
+
+#Creando una conexión a la base de datos PostgreSQL 
+
+con <- dbConnect(RPostgres::Postgres(),
+                 dbname = "postgres",  
+                 host = "localhost",          
+                 port = 52719,               
+                 user = "postgres",          
+                 password = "postgres")
 ```
 
 ## Including Plots
