@@ -70,8 +70,7 @@ dbExecute(con,"CREATE TABLE pacientes(ID_pacientes SERIAL PRIMARY KEY,
           Colesterol integer,
           Antecedentes_familiar varchar(3) check (Antecedentes_familiar in ('No','Sí')),
           Fumador varchar(3) check (Fumador in ('No','Sí')),
-          Diabetico varchar(3) check (Diabetico in ('No','Sí')),
-          FOREIGN KEY (ID_Paciente) REFERENCES pacientes(ID_pacientes) 
+          Diabetico varchar(3) check (Diabetico in ('No','Sí')), 
 );
 ")
 ```
@@ -272,7 +271,7 @@ JOIN diagnosticos d
 ON t.id_paciente = d.id_paciente
 WHERE d.riesgo_asociado = 'Muerte súbita'
 GROUP BY t.tipo_tratamiento
-ORDER BY frecuencia DESC;")
+ORDER BY frecuencia DESC;
 
 ```
 
