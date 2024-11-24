@@ -243,7 +243,7 @@ View(pacientes_fumadores)
 
 #esta tabla demuestra todos los pacientes que tienen riesgo de edema , y clasificando los IMCs  . 
 
-IMC_edema_total <- dbGetQuery(con , "CREATE VIEW PacientesEdema AS
+edema_total <- dbGetQuery(con , "CREATE VIEW PacientesEdema AS
 SELECT 
     p.ID_pacientes, 
     p.Nombre, 
@@ -262,9 +262,19 @@ JOIN diagnosticos d ON p.ID_pacientes = d.ID_Paciente
 AND d.Riesgo_asociado = 'Edema pulmonar';
 " )
 
+print(edema_total)
+
 # esta tabla demuetsra solo cuantos pacientes tienen edema y IMC>30 
-IMC_edema_count <- dbGetQuery(con , "SELECT * FROM PacientesEdema
+IMC_edema <- dbGetQuery(con , "CREATE VIEW Edema_IMC 
+                   AS SELECT * FROM PacientesEdema
                               WHERE IMC>30;")
+
+print(IMC_edema)
+#cuantos pacientes con edema y IMC>30 
+
+IMC_edema_count<- dbGetQuery(con , "SELECT COUNT(*) FROM Edema_IMC;")
+
+print(IMC_edema_count)
 
 
 # Obtener la lista de todas las tablas en la base de datos
