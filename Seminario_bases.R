@@ -35,8 +35,11 @@ dbExecute(con,
           duracion_meses smallint check (duracion_meses >=0 and duracion_meses<=24) , 
           frecuencia varchar(30) check (frecuencia in ('Diario','Única','Semanal','Mensual')) , 
           resultado_esperado varchar(70) not null ,
-          CONSTRAINT fk_paciente FOREIGN KEY (id_paciente) REFERENCES pacientes(ID_pacientes) ON UPDATE CASCADE ON DELETE CASCADE
-          );" )
+          CONSTRAINT fk_paciente FOREIGN KEY (ID_Paciente) 
+        REFERENCES pacientes(ID_pacientes) 
+        ON UPDATE CASCADE 
+        ON DELETE CASCADE
+          ;" )
 
 
 
@@ -186,7 +189,7 @@ dbExecute(con,"Insert into diagnosticos values(001,001,'2024-06-14','Hypertensi�
           (035, 035, '2021-01-04', 'Hipertensión Arterial', 'Crítica', 'ACV', 'Control semestral de lípidos');") 
 
 
-#PREGUNTA : ¿ QUE TRATAMIENTO TIENE MAYOR EXITO EN PACIENTES CON RIESGO ASOCIADO DE MUERTE SÚBITA?
+#PREGUNTA : ¿ QUE TRATAMIENTO TIENE MAYOR EXITO EN PACIENTES CON RIESGO ASOCIADO DE MUERTE SÚBITA (ORDENADOS)?
 
 tto_riesgo <- dbGetQuery(con,"SELECT t.tipo_tratamiento, COUNT(*) AS frecuencia
 FROM tratamientos t
@@ -199,19 +202,10 @@ ORDER BY frecuencia DESC;")
 View(tto_riesgo)
 print(tto_riesgo)
 
-<<<<<<< HEAD
-#SELECT t.tipo_tratamiento , COUNT(*) AS frecuencia 
-#FROM tratamientos t JOIN diagnosticos d 
-#ON t.id_paciente = d.ID_pacientes
-#WHERE d.Riesgo_asociado = 'Muerte súbita'
-#GROUP BY t.tipo_tratamiento
-#ORDER BY frecuencia DESC;
-=======
->>>>>>> edc90eea24b54ebda58cfc8a68a601c08f7473f1
 
 
 
-#PREGUNTA: ¿Qué pacientes tienen un diagnóstico de gravedad "Crítica", un tratamiento quirúrgico y antecedentes familiares?
+#PREGUNTA: ¿Qué pacientes tienen un diagnóstico de gravedad "Crítica", un tratamiento quirúrgico y antecedentes familiares ,en base a edad y género?
 
 # Mostrar los resultados
 print(pacientes_fumadores)
