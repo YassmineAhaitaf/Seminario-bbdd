@@ -209,8 +209,6 @@ print(tto_riesgo)
 =======
 >>>>>>> edc90eea24b54ebda58cfc8a68a601c08f7473f1
 
-dbisValid(con)
-dbListTables(con)
 
 
 #PREGUNTA: ¿Qué pacientes tienen un diagnóstico de gravedad "Crítica", un tratamiento quirúrgico y antecedentes familiares?
@@ -247,3 +245,21 @@ pacientes_fumadores <- dbGetQuery(con, "
 # Mostrar los resultados
 print(pacientes_fumadores)
 View(pacientes_fumadores)
+
+
+
+# Obtener la lista de todas las tablas en la base de datos
+tables <- dbListTables(con)
+print(tables)
+
+# Borrar todas las tablas
+for (table in tables) {
+  dbExecute(con, paste0("DROP TABLE IF EXISTS ", table, " CASCADE;"))
+}
+
+# Verificar que no queden tablas
+tables_after <- dbListTables(con)
+print(tables_after)
+
+# Cerrar la conexión
+dbDisconnect(con)
