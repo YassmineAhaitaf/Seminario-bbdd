@@ -17,12 +17,9 @@ con <- dbConnect(RPostgres::Postgres(),
                  password = "postgres")
 
 
-dbListTables(con)
 #CREANDO LA TABLA DE TRATAMIENTOS : 
 
-tto<-read.csv("TABLAS/tratamientos.csv")
 
-tto
 
 dbExecute(con, "DROP TABLE IF EXISTS tratamientos cascade;")
 dbExecute(con, 
@@ -97,8 +94,7 @@ dbExecute(con,"CREATE TABLE pacientes(ID_pacientes SERIAL PRIMARY KEY,
           Colesterol integer,
           Antecedentes_familiar varchar(3) check (Antecedentes_familiar in ('No','Sí')),
           Fumador varchar(3) check (Fumador in ('No','Sí')),
-          Diabetico varchar(3) check (Diabetico in ('No','Sí')),
-          FOREIGN KEY (ID_Paciente) REFERENCES pacientes(ID_pacientes) 
+          Diabetico varchar(3) check (Diabetico in ('No','Sí')), 
 );
 ")
 dbExecute(con,"insert into pacientes values (001, 'Thomas Johnston', 64, 'M', 21.4,'131/87',255,'No','No','Sí'),
@@ -211,9 +207,7 @@ print(tto_riesgo)
 
 #PREGUNTA: ¿Qué pacientes tienen un diagnóstico de gravedad "Crítica", un tratamiento quirúrgico y antecedentes familiares ,en base a edad y género?
 
-# Mostrar los resultados
-print(pacientes_fumadores)
-View(pacientes_fumadores)
+
 
 pacientes_criticos_quiro <- dbGetQuery(con, "
     SELECT p.ID_pacientes, p.Nombre, p.Edad, p.Genero, p.Antecedentes_familiar , d.Gravedad, t.tipo_tratamiento
