@@ -277,6 +277,12 @@ IMC_edema_count<- dbGetQuery(con , "SELECT COUNT(*) AS total_pacientes_edema_imc
 print(IMC_edema_count)
 
 
+#FINALMENTE ALTERAMOS LA TABLA ELIMINANDO LA COLUMNA CORRESPONDIENTE A FECHAS COMO NO SE HA USADO : 
+
+diagnosticos_alterada <- dbExecute(con , " ALTER TABLE diagnosticos
+                                   DROP COLUMN Fecha;")
+
+
 # Obtener la lista de todas las tablas en la base de datos
 tables <- dbListTables(con)
 print(tables)

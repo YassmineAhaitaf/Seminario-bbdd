@@ -498,6 +498,16 @@ print(result)
 
 Para finalizar el documento (y no entorpecer con las prácticas), es necesario crear un código que nos permita **borrar todas las tablas creadas**.
 
+
+Antes de borrarlas , se ha decidido eliminar la columna 'Fecha 'de la tabla 'diagnosticos' como no se ha usado : 
+
+```{sql , connection = con}
+ALTER TABLE diagnosticos
+DROP COLUMN Fecha;
+
+```
+
+
 ```{r, message=FALSE, warning=FALSE}
 # Obtener la lista de todas las tablas en la base de datos
 tables <- dbListTables(con)
