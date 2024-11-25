@@ -272,7 +272,7 @@ IMC_edema <- dbGetQuery(con , "CREATE VIEW Edema_IMC
 print(IMC_edema)
 #cuantos pacientes con edema y IMC>30 
 
-IMC_edema_count<- dbGetQuery(con , "SELECT COUNT(*) FROM Edema_IMC;")
+IMC_edema_count<- dbGetQuery(con , "SELECT COUNT(*) AS total_pacientes_edema_imc FROM Edema_IMC;" )
 
 print(IMC_edema_count)
 

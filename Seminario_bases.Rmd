@@ -483,7 +483,7 @@ Los pacientes con riesgo de **edema pulmonar** y con **IMC>30** son todos de gé
 Finalmente , vamos a contar cúantos pacientes del total de 32 pacientes tienen riesgo de **edema pulmonar** y un **IMC>30**: 
 
 ```{sql , connection = con}
-SELECT COUNT(*) FROM Edema_IMC;
+SELECT COUNT(*) AS total_pacientes_edema_imc FROM Edema_IMC;
 ```
 
 Son 5 pacientes que presentan un riesgo asociado a **Edema Pulmonar** y que tienen un **IMC>30** , o una proporción del 71.42% del total de pacientes con riesgo de **Edema Pulmonar** y un 15.625% del total de la población de los pacientes . 
