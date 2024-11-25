@@ -31,8 +31,7 @@ con <- dbConnect(RPostgres::Postgres(),
 
 ## Introducción
 
-Estos datos se corresponden a un ejemplo sintético (*i.e.* ficticio) de **epidemiología**.
-
+Este trabajo utiliza un conjunto de datos sintéticos generados por inteligencia artificial, enfocados en pacientes con enfermedades cardiovasculares, sus diagnósticos clínicos y los tratamientos administrados. 
 En total se crearán tres **tablas**.
 
 * 1.  **Tabla pacientes**: Contendrá los datos de los pacientes.
@@ -70,7 +69,7 @@ dbExecute(con,"CREATE TABLE pacientes(ID_pacientes SERIAL PRIMARY KEY,
           Colesterol integer,
           Antecedentes_familiar varchar(3) check (Antecedentes_familiar in ('No','Sí')),
           Fumador varchar(3) check (Fumador in ('No','Sí')),
-          Diabetico varchar(3) check (Diabetico in ('No','Sí')), 
+          Diabetico varchar(3) check (Diabetico in ('No','Sí'))
 );
 ")
 ```
@@ -435,26 +434,26 @@ CREATE VIEW PacientesEdema AS
 SELECT 
     p.ID_pacientes, 
     p.Nombre, 
-    p.IMC ,  
-	CASE 
+    p.IMC,  
+    CASE 
         WHEN p.IMC < 18.5 THEN 'Bajo peso'
         WHEN p.IMC BETWEEN 18.5 AND 24.9 THEN 'Normal'
         WHEN p.IMC BETWEEN 25 AND 29.9 THEN 'Sobrepeso'
         WHEN p.IMC >= 30 THEN 'Obesidad'
     END AS Categoria_IMC,
-    p.Edad,CASE 
-           WHEN p.Edad BETWEEN 18 AND 30 THEN 'Joven'
-           WHEN p.Edad BETWEEN 31 AND 50 THEN 'Adulto'
-           WHEN p.Edad BETWEEN 51 AND 70 THEN 'Adulto Mayor'
-           WHEN p.Edad > 70 THEN 'Anciano'
-           ELSE 'No especificada'
-       END AS Categoria_Edad , 
+    p.Edad,
+    CASE 
+        WHEN p.Edad BETWEEN 18 AND 30 THEN 'Joven'
+        WHEN p.Edad BETWEEN 31 AND 50 THEN 'Adulto'
+        WHEN p.Edad BETWEEN 51 AND 70 THEN 'Adulto Mayor'
+        WHEN p.Edad > 70 THEN 'Anciano'
+        ELSE 'No especificada'
+    END AS Categoria_Edad, 
     p.Genero,
-    d.Riesgo_asociado,
+    d.Riesgo_asociado
 FROM pacientes p
 JOIN diagnosticos d ON p.ID_pacientes = d.ID_Paciente
-AND d.Riesgo_asociado = 'Edema pulmonar';
-
+WHERE d.Riesgo_asociado = 'Edema pulmonar';
 ```
 
 
