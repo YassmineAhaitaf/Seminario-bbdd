@@ -505,6 +505,8 @@ Antes de borrarlas , se ha decidido eliminar la columna 'Fecha 'de la tabla 'dia
 ALTER TABLE diagnosticos
 DROP COLUMN Fecha;
 
+SELECT * FROM diagnosticos;
+
 ```
 
 
