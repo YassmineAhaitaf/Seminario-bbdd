@@ -13,6 +13,10 @@ output:
 
 ---
 
+![jpg]("./Escudo Color TL.jpg"){width=50% align="right"}
+){width=50% align="right"}
+
+
 # Crear una conexión a una BBDD local usando R
 
 Primero vamos a crear una conexión a una BBDD local usando R, y eso ejecutando los comandos de `sql` en un documento RMarkdown, deberemos utilizar los paquetes `DBI` y `RPostgres`.
