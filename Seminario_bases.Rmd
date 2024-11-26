@@ -496,6 +496,34 @@ Son 5 pacientes que presentan un riesgo asociado a **Edema Pulmonar** y que tien
 
 
 
+## Conclusiones : 
+
+- El tratamiento farmacológico es el más eficaz y frecuente para los pacientes con riesgo asociado a muerte súbita, siendo una opción clave en el manejo de estos pacientes.
+
+- El 100% de los pacientes con insuficiencia cardiaca grave son fumadores, lo que subraya la relación entre el consumo de tabaco y el desarrollo de esta condición en su forma más severa.
+
+- De los 32 pacientes analizados, el 15% presenta una gravedad crítica y antecedentes familiares, con una distribución de género del 60% masculino y 40% femenino. Esta alta prevalencia de gravedad crítica resalta la importancia de los antecedentes familiares en la evaluación del riesgo.
+
+- Dentro de los pacientes con gravedad crítica y antecedentes familiares, el 60% son adultos mayores (entre 51 y 70 años), indicando una mayor vulnerabilidad en este grupo etario.
+
+- En cuanto a la intervención quirúrgica, el 6.25% de los pacientes (2 adultos mayores) con gravedad crítica y antecedentes familiares han tenido que someterse a procedimientos quirúrgicos, lo que destaca la necesidad de un manejo más intensivo en estos casos.
+
+- El 21.87% de los pacientes (7 adultos mayores) presenta un riesgo de edema pulmonar, lo que refleja una prevalencia significativa de esta complicación en este grupo etario.
+
+- Todos los pacientes con riesgo de edema pulmonar y un IMC > 30 son de género masculino, y la mayoría de ellos se encuentran en la categoría de ancianos, lo que sugiere que los factores de obesidad y género tienen un impacto importante en el riesgo de desarrollar esta condición.
+
+- Finalmente, el 71.42% de los pacientes con edema pulmonar y un IMC > 30 corresponden al grupo de pacientes con mayor riesgo dentro de la población de edema pulmonar, representando un 15.625% del total de los pacientes analizados.
+
+
+### Resumen : 
+
+Los datos resaltan la relación entre factores como el género, la edad avanzada, el IMC elevado, y los antecedentes familiares con una mayor gravedad de las condiciones tratadas, destacando la necesidad de un enfoque personalizado y preventivo en el tratamiento y monitoreo de estos pacientes.
+
+
+## Recursos adicionales : 
+
+[Repositorio de GitHub con el código completo y descripción](https://github.com/YassmineAhaitaf/Seminario-bbdd)
+
 
 # Finalizando el documento
 
