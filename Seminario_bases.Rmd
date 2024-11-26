@@ -12,8 +12,11 @@ output:
 
 
 ---
-
-![jpg]("Escudo Color TL.jpg"){width=50% align="right"}
+```{r, echo=FALSE}
+htmltools::img(src = knitr::image_uri("Escudo Color TL.png"), 
+               alt = 'logo', 
+               style = 'position:absolute; top:0; left:0; padding:10px; width:100px; height:100px;')
+```
 
 
 # Crear una conexión a una BBDD local usando R
