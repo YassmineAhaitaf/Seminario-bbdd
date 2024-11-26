@@ -64,7 +64,7 @@ Código del seminario
 
 ### Creación de tablas
 
-#### `**Tabla pacientes**`
+#### **Tabla pacientes**
 
 Contendrá los datos de los pacientes.
 
@@ -132,7 +132,7 @@ Mostramos la tabla
 SELECT * FROM pacientes; 
 ```
 
-#### `**Tabla diagnosticos**`
+#### **Tabla diagnosticos**
 
 Contendrá los diagnosticos médicos:
 
@@ -200,7 +200,7 @@ Mostramos la tabla
 SELECT * FROM diagnosticos; 
 ```
 
-#### `**Tabla tratamientos**`
+#### **Tabla tratamientos**
 
 Contendrá los tratamientos que se administran a los pacientes.
 
@@ -500,7 +500,7 @@ Son 5 pacientes que presentan un riesgo asociado a **Edema Pulmonar** y que tien
 
 
 
-## Conclusiones : 
+## Conclusiones 
 
 - El tratamiento farmacológico es el más eficaz y frecuente para los pacientes con riesgo asociado a muerte súbita, siendo una opción clave en el manejo de estos pacientes.
 
@@ -519,7 +519,7 @@ Son 5 pacientes que presentan un riesgo asociado a **Edema Pulmonar** y que tien
 - Finalmente, el 71.42% de los pacientes con edema pulmonar y un IMC > 30 corresponden al grupo de pacientes con mayor riesgo dentro de la población de edema pulmonar, representando un 15.625% del total de los pacientes analizados.
 
 
-### Resumen : 
+### Resumen 
 
 Los datos resaltan la relación entre factores como el género, la edad avanzada, el IMC elevado, y los antecedentes familiares con una mayor gravedad de las condiciones tratadas, destacando la necesidad de un enfoque personalizado y preventivo en el tratamiento y monitoreo de estos pacientes.
 
