@@ -13,8 +13,7 @@ output:
 
 ---
 
-![jpg]("./Escudo Color TL.jpg"){width=50% align="right"}
-){width=50% align="right"}
+![jpg]("Escudo Color TL.jpg"){width=50% align="right"}
 
 
 # Crear una conexión a una BBDD local usando R
