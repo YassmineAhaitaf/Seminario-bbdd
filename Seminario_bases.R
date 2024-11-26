@@ -27,7 +27,7 @@ dbExecute(con,
           create table tratamientos (
           id_tratamiento SERIAL PRIMARY KEY , 
           ID_Paciente integer references pacientes(ID_pacientes) ON DELETE CASCADE ON UPDATE CASCADE,
-          tipo_tratamiento varchar(50) unique not null,
+          tipo_tratamiento varchar(50)  not null,
           detalle varchar(50),
           duracion_meses smallint check (duracion_meses >=0 and duracion_meses<=24) , 
           frecuencia varchar(30) check (frecuencia in ('Diario','Única','Semanal','Mensual')) , 
