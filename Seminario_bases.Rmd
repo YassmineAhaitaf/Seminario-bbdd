@@ -8,16 +8,9 @@ output:
     toc: true
     toc_depth: 3
     toc_float: true
- 
-
-
 ---
-```{r, echo=FALSE}
-htmltools::img(src = knitr::image_uri("Escudo Color TL.png"), 
-               alt = 'logo', 
-               style = 'position:absolute; top:0; left:0; padding:10px; width:100px; height:100px;')
-```
 
+![](images/Escudo Color TL.jpg){width="329"}
 
 # Crear una conexión a una BBDD local usando R
 
@@ -44,21 +37,31 @@ con <- dbConnect(RPostgres::Postgres(),
 
 ## Introducción
 
-Este trabajo utiliza un conjunto de datos sintéticos generados por inteligencia artificial, enfocados en pacientes con enfermedades cardiovasculares, sus diagnósticos clínicos y los tratamientos administrados. 
-En total se crearán tres **tablas**.
+Este trabajo utiliza un conjunto de datos sintéticos generados por inteligencia artificial, enfocados en pacientes con enfermedades cardiovasculares, sus diagnósticos clínicos y los tratamientos administrados. En total se crearán tres **tablas**.
 
-* 1.  **Tabla pacientes**: Contendrá los datos de los pacientes.
-* 2.  **Tabla diagnostico** : Contendrá el resultado del diagnostico. 
-* 3.  **Tabla tratamientos**: Contendrá los tratamientos que se administran a los pacientes.
+-   
+
+    1.  **Tabla pacientes**: Contendrá los datos de los pacientes.
+
+-   
+
+    2.  **Tabla diagnostico** : Contendrá el resultado del diagnostico.
+
+-   
+
+    3.  **Tabla tratamientos**: Contendrá los tratamientos que se administran a los pacientes.
 
 ## Objetivos/Preguntas
 
 A continuación se responderán las siguientes preguntas:
-**1. ¿ Que tratamiento tiene mayor éxito en pacientes con riesgo de muerte súbita ordenandolos segun su eficacia ?**
-***2. ¿Qué pacientes tienen un diagnóstico de "Insuficiencia Cardíaca" con gravedad "Alta" y además son fumadores?**
-**3.¿Qué pacientes tienen un diagnóstico de gravedad "Crítica", un tratamiento quirúrgico y antecedentes familiares ,en base a edad y género?**
-**4.¿Cuántos pacientes con un IMC mayor a 30 tienen diagnósticos con riesgo asociado de "Edema pulmonar"?**
 
+**1. ¿ Que tratamiento tiene mayor éxito en pacientes con riesgo de muerte súbita ordenandolos segun su eficacia ?**
+
+**2. ¿Qué pacientes tienen un diagnóstico de "Insuficiencia Cardíaca" con gravedad "Alta" y además son fumadores?**
+
+**3.¿Qué pacientes tienen un diagnóstico de gravedad "Crítica", un tratamiento quirúrgico y antecedentes familiares ,en base a edad y género?**
+
+**4.¿Cuántos pacientes con un IMC mayor a 30 tienen diagnósticos con riesgo asociado de "Edema pulmonar"?**
 
 ## Metodología y Resultados
 
@@ -68,7 +71,7 @@ Código del seminario
 
 #### **Tabla pacientes**
 
-Contendrá los datos de los pacientes. Se elige el **id_paciente** como clave primaria de tipo serial que nos permite un autoincremento , y sirve para identificar un sólo y único paciente . El nombre estaba eligidon para ser una clave candidata porque no puede ser nulo y tampoco se puede repetir (el nombre aquí incluye nombre y apellidos). 
+Contendrá los datos de los pacientes. Se elige el **id_paciente** como clave primaria de tipo serial que nos permite un autoincremento , y sirve para identificar un sólo y único paciente . El nombre estaba eligidon para ser una clave candidata porque no puede ser nulo y tampoco se puede repetir (el nombre aquí incluye nombre y apellidos).
 
 ```{r, warning=FALSE, message=FALSE}
 # Crear tabla 'pacientes'
@@ -132,452 +135,4 @@ Mostramos la tabla
 
 ```{sql, connection=con}
 SELECT * FROM pacientes; 
-```
-
-#### **Tabla diagnosticos**
-
-Contendrá los diagnosticos médicos:
-Se ha elegido que el **id_diagnostico** como clave primaria , porque es propio y único para cada diagnóstico de cada paciente . 
-- **Id_Paciente** es clave ajena para asegurar la integridad referencial , cada diagnóstico pertenece a un paciente . 
-- **ON UPDATE CASCADE ** : Si cambia el `ID_pacientes` en la tabla `pacientes`, este cambio se propaga automáticamente a la tabla `diagnosticos`.
-- **ON DELETE CASCADE** : Si un paciente es eliminado, todos sus diagnósticos asociados también serán eliminados. Esto evita que queden registros huérfanos.
-- **CONSTRAINT** : Aunque ya se especifica la relación REFERENCES, el uso de una `CONSTRAINT` con nombre (en este caso, `fk_paciente_diag`) permite una mayor claridad y facilita la administración de la base de datos. Si se necesitas eliminar o modificar esta restricción, se podría referenciarla directamente por su nombre.
-
-```{r, message=FALSE, warning=FALSE}
-# Crear tabla 'consultas'
-dbExecute(con, "DROP TABLE IF EXISTS diagnosticos;")
-dbExecute(con, "Create table diagnosticos(Id_diagnostico SERIAL PRIMARY KEY, 
-          ID_Paciente integer references pacientes(ID_pacientes),
-          Fecha DATE NOT NULL,
-          Enfermedad_cardiovascular varchar(255),
-          Gravedad varchar(25) check (Gravedad in ('Moderada','Alta','Crítica')),
-          Riesgo_asociado varchar(25) check (Riesgo_asociado in ('Muerte súbita', 'Edema pulmonar','IAM','ACV','Angina de pecho') ),
-          Plan_de_seguimiento varchar(50),
-        CONSTRAINT fk_paciente_diag FOREIGN KEY (ID_Paciente) 
-        REFERENCES pacientes(ID_pacientes)
-        ON UPDATE CASCADE 
-        ON DELETE CASCADE
-          );")
-```
-
-Ahora agregamos valores a las tablas de diagnosticos
-
-```{r, warning=FALSE, message=FALSE}
-# Insertar datos en 'consultas'
-dbExecute(con,"Insert into diagnosticos values(001,001,'2024-06-14','Hypertensión Arterial','Alta','Muerte súbita','Hospitalización recurrente'),
-          (002, 002, '2013-06-11','Hipertensión Arterial','Alta','Edema pulmonar','Rehabilitación cardiovascular'),
-          (003, 003, '2021-06-10','Infarta Agudo de Miocardio','Crítica','Muerte súbita','Consulta trimestral'),
-          (004, 004, '2021-03-04','Hipertensión Arterial','Crítica','Muerte súbita','Consulta trimestral'),
-          (005, 005, '2022-01-16','Hipertensión Arterial','Alta','ACV','Control semestral de lípidos'),
-          (006, 006, '2024-04-21','Hipertensión Arterial','Crítica','Angina de pecho','Rehabilitación cardiovascular'),
-          (007, 007, '2022-01-06','Insuficiencia Cardíaca','Moderada','Muerte súbita','Seguimiento anual'),
-          (008, 008, '2021-02-26','Insuficiencia Cardíaca','Moderada','IAM','consulta trimestral'),
-          (009, 009, '2021-12-24', 'Hipercolesterolemia', 'Moderada', 'IAM', 'Seguimiento anual' ),
-          (010, 010, '2020-03-25','Insuficiencia Cardíaca', 'Crítica', 'IAM','Rehabilitación cardiovascular'),
-          (011, 011, '2022-06-25', 'Infarto Agudo de Miocardio', 'Alta', 'Angina de pecho', 'Seguimiento anual'),
-          (012, 012, '2022-08-06', 'Infarto Agudo de Miocardio', 'Moderada', 'ACV', 'Rehabilitación cardiovascular'),
-          (013, 013, '2020-01-18', 'Insuficiencia Cardíaca', 'Crítica', 'Angina de pecho', 'Hospitalización recurrente'),
-          (014, 014, '2019-11-27', 'Aterosclerosis Coronaria', 'Alta', 'Edema pulmonar', 'Consulta trimestral'),
-          (015, 015, '2023-07-18', 'Hipertensión Arterial', 'Crítica', 'Angina de pecho', 'Control semestral de lípidos'),
-          (016, 016, '2021-03-02', 'Hipercolesterolemia', 'Alta', 'ACV', 'Rehabilitación cardiovascular'),
-          (017, 017, '2021-01-06', 'Hipercolesterolemia', 'Moderada', 'Edema pulmonar', 'Rehabilitación cardiovascular'),
-          (018, 018, '2021-09-24', 'Infarto Agudo de Miocardio', 'Moderada', 'Edema pulmonar', 'Control semestral de lípidos'),
-          (019, 019, '2021-08-18', 'Hipertensión Arterial', 'Moderada', 'IAM', 'Consulta trimestral'),
-          (020, 020, '2021-01-24', 'Insuficiencia Cardíaca', 'Alta', 'IAM', 'Rehabilitación cardiovascular'),
-          (021, 021,  '2020-01-24', 'Hipercolesterolemia', 'Alta', 'ACV', 'Rehabilitación cardiovascular'),
-          (022, 022, '2020-07-03', 'Hipertensión Arterial',  'Crítica', 'IAM',  'Rehabilitación cardiovascular'),
-          (023, 023, '2024-03-24', 'Insuficiencia Cardíaca', 'Moderada', 'Muerte súbita', 'Hospitalización recurrente'),
-          (024, 024, '2021-04-17', 'Insuficiencia Cardíaca', 'Crítica', 'IAM', 'Control semestral de lípidos'),
-          (025, 025, '2023-04-02', 'Hipertensión Arterial', 'Moderada', 'ACV', 'Hospitalización recurrente'),
-          (026, 026, '2021-12-31', 'Infarto Agudo de Miocardio', 'Moderada', 'Edema pulmonar', 'Control semestral de lípidos'),
-          (027, 027, '2021-12-09', 'Insuficiencia Cardíaca', 'Crítica', 'Muerte súbita', 'Hospitalización recurrente'),
-          (028, 028, '2021-07-15', 'Insuficiencia Cardíaca', 'Alta', 'Edema pulmonar', 'Control semestral de lípidos'),
-          (029, 029, '2024-02-12', 'Infarto Agudo de Miocardio', 'Moderada', 'IAM', 'Rehabilitación cardiovascular'),
-          (030, 030, '2023-09-16', 'Hipertensión Arterial', 'Alta', 'Edema pulmonar', 'Hospitalización recurrente'),
-          (031, 031, '2020-10-02', 'Insuficiencia Cardíaca', 'Crítica',  'ACV', 'Control semestral de lípidos'),
-          (032, 032, '2024-07-10', 'Infarto Agudo de Miocardio', 'Crítica', 'ACV', 'Hospitalización recurrente'),
-          (033, 033, '2023-01-14', 'Hipercolesterolemia', 'Alta', 'ACV', 'Rehabilitación cardiovascular'),
-          (034, 034, '2023-10-29', 'Hipercolesterolemia','Alta', 'IAM', 'Rehabilitación cardiovascular'),
-          (035, 035, '2021-01-04', 'Hipertensión Arterial', 'Crítica', 'ACV', 'Control semestral de lípidos')") 
-```
-
-Mostramos la tabla
-
-```{sql, connection=con}
-SELECT * FROM diagnosticos; 
-```
-
-#### **Tabla tratamientos**
-
-Contendrá los tratamientos que se administran a los pacientes: 
-
-- **id_tratamiento**: es un identificador único autoincremental para cada tratamiento , se ha usado como clave primaria porque nos permite identificar de manera única cada registro de esta tabla . 
-- **ID_Paciente INTEGER REFERENCES pacientes(ID_pacientes)** : Define que cada tratamiento está vinculado a un paciente específico , utiliza la clave primaria `ID_pacientes`de la tabla `pacientes`para asegurar la integridad referencial . Lo que permitiría que los tratamientos estén directamente relacionados con un paciente , garantizando que solo se puedan asignar tratamientos a pacientes existentes . 
-- **ON DELETE CASCADE** :Si un paciente es eliminado, todos sus tratamientos asociados también serán eliminados. Esto evita que queden registros huérfanos . 
-- **ON UPDATE CASCADE** : Si cambia el `ID_pacientes` en la tabla `pacientes`, este cambio se propaga automáticamente a la tabla `tratamientos`.
-- No se ha especificado una clave candidata , porque todas se pueden repetir
-
-```{r warning=FALSE, message=FALSE}
-# Crear tabla 'tratamientos'
-dbExecute(con, "DROP TABLE IF EXISTS tratamientos;")
-dbExecute(con, 
-          "
-          create table tratamientos (
-          id_tratamiento SERIAL PRIMARY KEY , 
-          ID_Paciente integer references pacientes(ID_pacientes) ON DELETE CASCADE ON UPDATE CASCADE,
-          tipo_tratamiento varchar(50) not null,
-          detalle varchar(50),
-          duracion_meses smallint check (duracion_meses >=0 and duracion_meses<=24) , 
-          frecuencia varchar(30) check (frecuencia in ('Diario','Única','Semanal','Mensual')) , 
-          resultado_esperado varchar(70) not null 
-          );" )
-```
-
-Ahora agregamos valores a la tabla de tratamientos
-
-```{r, warning=FALSE, message=FALSE}
-# Insertar datos en 'tratamientos'
-dbExecute(con,"INSERT INTO tratamientos (id_paciente, tipo_tratamiento, detalle, duracion_meses, frecuencia, resultado_esperado)
-VALUES 
-('001', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 7, 'Diario', 'Reducir colesterol'),
-('002', 'Farmacológico', 'Atorvastatina', 16, 'Diario', 'Reducir colesterol'),
-('003', 'Intervención Quirúrgica', 'Colocación de Stent', 21, 'Única', 'Reducir colesterol'),
-('004', 'Farmacológico', 'Bisoprolol', 11, 'Única', 'Mejorar flujo sanguíneo'),
-('005', 'Farmacológico', 'Aspirina', 19, 'Diario', 'Reducir presión arterial'),
-('006', 'Intervención Quirúrgica', 'Bypass Coronario', 24, 'Diario', 'Reducir presión arterial'),
-('007', 'Farmacológico', 'Atorvastatina', 9, 'Diario', 'Mejorar flujo sanguíneo'),
-('008', 'Farmacológico', 'Metformina', 10, 'Diario', 'Mejorar flujo sanguíneo'),
-('009', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 19, 'Diario', 'Reducir colesterol'),
-('010', 'Intervención Quirúrgica', 'Colocación de Stent', 18, 'Única', 'Reducir colesterol'),
-('011', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 4, 'Única', 'Reducir colesterol'),
-('012', 'Farmacológico', 'Losartán', 13, 'Semanal', 'Reducir colesterol'),
-('013', 'Farmacológico', 'Aspirina', 15, 'Única', 'Mejorar flujo sanguíneo'),
-('014', 'Cambio de Estilo de Vida', 'Reducción de Sodio', 20, 'Única', 'Reducir colesterol'),
-('015', 'Cambio de Estilo de Vida', 'Dieta Mediterránea', 16, 'Diario', 'Reducir presión arterial'),
-('016', 'Cambio de Estilo de Vida', 'Dieta Mediterránea', 19, 'Semanal', 'Mejorar flujo sanguíneo'),
-('017', 'Intervención Quirúrgica', 'Colocación de Stent', 23, 'Semanal', 'Mejorar flujo sanguíneo'),
-('018', 'Farmacológico', 'Aspirina', 5, 'Semanal', 'Reducir colesterol'),
-('019', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 6, 'Diario', 'Reducir colesterol'),
-('020', 'Cambio de Estilo de Vida', 'Reducción de Sodio', 8, 'Diario', 'Reducir presión arterial'),
-('021', 'Intervención Quirúrgica', 'Bypass Coronario', 7, 'Diario', 'Reducir presión arterial'),
-('022', 'Intervención Quirúrgica', 'Colocación de Stent', 21, 'Única', 'Reducir colesterol'),
-('023', 'Intervención Quirúrgica', 'Colocación de Stent', 18, 'Única', 'Mejorar flujo sanguíneo'),
-('024', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 9, 'Diario', 'Mejorar flujo sanguíneo'),
-('025', 'Cambio de Estilo de Vida', 'Reducción de Sodio', 3, 'Semanal', 'Mejorar flujo sanguíneo'),
-('026', 'Farmacológico', 'Bisoprolol', 8, 'Única', 'Mejorar flujo sanguíneo'),
-('027', 'Farmacológico', 'Bisoprolol', 20, 'Diario', 'Reducir colesterol'),
-('028', 'Farmacológico', 'Bisoprolol', 17, 'Semanal', 'Mejorar flujo sanguíneo'),
-('029', 'Cambio de Estilo de Vida', 'Ejercicio Aeróbico', 22, 'Diario', 'Mejorar flujo sanguíneo'),
-('030', 'Cambio de Estilo de Vida', 'Reducción de Sodio', 8, 'Diario', 'Reducir colesterol'),
-('031', 'Farmacológico', 'Aspirina', 1, 'Semanal', 'Reducir presión arterial'),
-('032', 'Intervención Quirúrgica', 'Bypass Coronario', 7, 'Semanal', 'Reducir colesterol'),
-('033', 'Intervención Quirúrgica', 'Bypass Coronario', 21, 'Semanal', 'Reducir colesterol'),
-('034', 'Farmacológico', 'Metformina', 16, 'Diario', 'Reducir colesterol'),
-('035', 'Farmacológico', 'Metformina', 13, 'Semanal', 'Reducir presión arterial');
-")
-```
-
-Mostramos la tabla
-
-```{sql, connection=con}
-SELECT * FROM tratamientos; 
-```
-
-### Pregunta 1
-
-1.  ¿ QUE TRATAMIENTO TIENE MAYOR EXITO EN PACIENTES CON RIESGO ASOCIADO DE MUERTE SÚBITA (ORDENADOS)?
-
-```{sql, connection=con}
-SELECT t.tipo_tratamiento, COUNT(*) AS frecuencia
-FROM tratamientos t
-JOIN diagnosticos d
-ON t.id_paciente = d.id_paciente
-WHERE d.riesgo_asociado = 'Muerte súbita'
-GROUP BY t.tipo_tratamiento
-ORDER BY frecuencia DESC;
-
-```
-
-
-Visto el resultado de esta consulta , el tratamiento con mejor eficacia y mayor frecuencia en pacientes con un riesgo asociado a muerte súbita es el **tratamiento farmacológico**. 
-
-### Pregunta 2
-
-2.¿Qué pacientes tienen un diagnóstico de "Insuficiencia Cardíaca" con gravedad "Alta" y además son fumadores?
-
-```{sql, connection=con}
-SELECT p.ID_pacientes, p.Nombre, p.Edad, p.Genero, p.Fumador, d.Enfermedad_cardiovascular, d.Gravedad
-FROM pacientes p
-JOIN diagnosticos d ON p.ID_pacientes = d.ID_Paciente
-WHERE d.Enfermedad_cardiovascular =  'Insuficiencia Cardíaca'
-AND d.Gravedad = 'Alta'
-AND p.Fumador = 'Sí';
-
-
-```
-
-Aquí , vamos a ver en que proporción  presentan los fumadores entre los pacientes con **Insuficiencia cardiaca** y con **Alta Gravedad**
-
-```{sql, connection = con }
-SELECT p.ID_pacientes, p.Nombre, p.Edad, p.Genero, p.Fumador, d.Enfermedad_cardiovascular, d.Gravedad
-    FROM pacientes p
-    JOIN diagnosticos d ON p.ID_pacientes = d.ID_Paciente
-    WHERE d.Enfermedad_cardiovascular =  'Insuficiencia Cardíaca'
-    AND d.Gravedad = 'Alta';
-
-```
-
-Se deduce que los fumadores presentan el 100% de los pacientes de **Alta Gravedad** con **Insuficiencia Cardiaca** . 
-
-### Pregunta 3
-
-3.  ¿Qué pacientes tienen un diagnóstico de gravedad "Crítica", un tratamiento quirúrgico y antecedentes familiares ,en base a edad y género?
-
-Primero , vamos a proceder a saber que pacientes tienen un diágnostico de gravedad **crítico** y **antecedentes familiares** : 
-
-```{sql , connection = con }
-SELECT p.ID_pacientes, p.Nombre, p.Edad, p.Genero, p.Antecedentes_familiar , d.Gravedad, t.tipo_tratamiento
-    FROM pacientes p
-    JOIN diagnosticos d ON p.ID_pacientes = d.ID_Paciente
-    JOIN tratamientos t ON p.ID_pacientes = t.id_paciente
-    WHERE d.Gravedad = 'Crítica'
-    AND p.Antecedentes_familiar  = 'Sí';
-
-```
-
-Analizaremos a continuación la predominancia de la **gravedad del diagnóstico y los antecedentes familiares ** en base al género de los pacientes (F o M) y en base a la edad de los pacientes: 
-Para ello , creamos una vista para poder hacer los filtrados sin necesidad de repetir las consultas generales : 
-
-```{sql , connection = con}
-CREATE VIEW ConsultaFiltrada AS
-
-SELECT p.ID_pacientes, 
-       p.Nombre, 
-       p.Edad, 
-       p.Genero,        
-       CASE 
-           WHEN p.Genero = 'M' THEN 'Masculino'
-           WHEN p.Genero = 'F' THEN 'Femenino'
-           ELSE 'Otro Género'
-       END AS Descripcion_Genero,
-       p.Antecedentes_familiar, 
-       d.Gravedad, 
-       t.tipo_tratamiento
-FROM pacientes p
-JOIN diagnosticos d ON p.ID_pacientes = d.ID_Paciente
-JOIN tratamientos t ON p.ID_pacientes = t.id_paciente
-WHERE d.Gravedad = 'Crítica'
-AND p.Antecedentes_familiar = 'Sí';
-
-
-
-```
-
-Hacemos el filtrado por género , creando vistas:
-```{sql , connection = con }
---Para el genero masculino
-
-CREATE VIEW Masculino AS
-SELECT * 
-FROM ConsultaFiltrada
-WHERE Descripcion_Genero = 'Masculino';
-
-```
-
-```{sql , connection = con }
-SELECT * FROM Masculino;
-```
-
-```{sql , connection = con }
---Para el genero femenino 
-
-CREATE VIEW Femenino AS
-SELECT * 
-FROM ConsultaFiltrada
-WHERE Descripcion_Genero = 'Femenino';
-```
-
-
-```{sql , connection = con }
-SELECT * FROM Femenino;
-```
-
-Deducimos de esto que , de 32 pacientes en total , el **15 %** presentan una gravedad crítica y antecedentes familiares , de los cuales el **60 %** son de género masculino y el **40 %** son de género femenino . 
-
-
-
-
-Filtramos los pacientes según su categoría de edad : 
-```{sql , connection = con }
-CREATE VIEW Edad AS
-SELECT *, 
-       CASE 
-           WHEN Edad BETWEEN 18 AND 30 THEN 'Joven'
-           WHEN Edad BETWEEN 31 AND 50 THEN 'Adulto'
-           WHEN Edad BETWEEN 51 AND 70 THEN 'Adulto Mayor'
-           WHEN Edad > 70 THEN 'Anciano'
-           ELSE 'No especificada'
-       END AS Categoria_Edad
-       FROM ConsultaFiltrada;
-```
-
-
-```{sql , connection = con }
-
-SELECT * FROM Edad;
-
-
-```
-
-Notamos que el 60% de los casos con gravedad crítica y antecedentes familiares son adultos mayores [51,70].
-
-
-Ahora , procedemos a saber qué pacientes con diágnostico de gravedad **crítico** y **antecedentes familiares** han tenido que recorrer a una **intervención quirúrgica** : 
-
-```{sql, connection=con}
-select * 
-from ConsultaFiltrada
-where tipo_tratamiento = 'Intervención Quirúrgica';
-
-```
-
-Del total de 32 pacientes , 2 pacientes (adultos mayores) presentan un diagnóstico de *gravedad crítico* , *antecedentes familiares* y han tenido que recorrer a una *intervención quirúrgica* , o un porcentaje de **6.25%** del total de pacientes . 
-
-### Pregunta 4 :
-
-1. ¿Cuántos pacientes con un IMC mayor a 30 tienen diagnósticos con riesgo asociado de "Edema pulmonar"?
-
-
-Primero , vamos a filtrar los pacientes con riesgo asociado de **Edema Pulmonar** y clasificar los IMCs . 
-Vamos a crear una vista que nos permitirá trabajr con los mismos datos de aquí adelante : 
-
-
-
-```{sql, connection=con}
-CREATE VIEW PacientesEdema AS
-SELECT 
-    p.ID_pacientes, 
-    p.Nombre, 
-    p.IMC,  
-    CASE 
-        WHEN p.IMC < 18.5 THEN 'Bajo peso'
-        WHEN p.IMC BETWEEN 18.5 AND 24.9 THEN 'Normal'
-        WHEN p.IMC BETWEEN 25 AND 29.9 THEN 'Sobrepeso'
-        WHEN p.IMC >= 30 THEN 'Obesidad'
-    END AS Categoria_IMC,
-    p.Edad,
-    CASE 
-        WHEN p.Edad BETWEEN 18 AND 30 THEN 'Joven'
-        WHEN p.Edad BETWEEN 31 AND 50 THEN 'Adulto'
-        WHEN p.Edad BETWEEN 51 AND 70 THEN 'Adulto Mayor'
-        WHEN p.Edad > 70 THEN 'Anciano'
-        ELSE 'No especificada'
-    END AS Categoria_Edad, 
-    p.Genero,
-    d.Riesgo_asociado
-FROM pacientes p
-JOIN diagnosticos d ON p.ID_pacientes = d.ID_Paciente
-WHERE d.Riesgo_asociado = 'Edema pulmonar';
-```
-
-
-```{sql , connection = con}
-SELECT * FROM PacientesEdema;
-```
-
-7 pacientes de diferentes IMCs , en una categoría de edad de adultos mayores o ancianos ,  del total de 32 pacientes presentan un riesgo de **Edema Pulmonar** , o un **21.87%** . 
-
-
-Ahora , vamos a visualizar los pacientes con riesgo de edema tienen un IMC>30 , visualizando su género y su categoría de edad : 
-```{sql , connection = con}
-CREATE VIEW Edema_IMC AS 
-SELECT * FROM PacientesEdema
-WHERE IMC>30;
-
-```
-
-```{sql , connection = con}
-SELECT * FROM Edema_IMC;
-```
-
-Los pacientes con riesgo de **edema pulmonar** y con **IMC>30** son todos de género masculino , y la mayor parte de estos pacientes está categorizada como **Anciana** . 
-
-
-Finalmente , vamos a contar cúantos pacientes del total de 32 pacientes tienen riesgo de **edema pulmonar** y un **IMC>30**: 
-
-```{sql , connection = con}
-SELECT COUNT(*) AS total_pacientes_edema_imc FROM Edema_IMC;
-```
-
-Son 5 pacientes que presentan un riesgo asociado a **Edema Pulmonar** y que tienen un **IMC>30** , o una proporción del 71.42% del total de pacientes con riesgo de **Edema Pulmonar** y un 15.625% del total de la población de los pacientes . 
-
-
-
-## Conclusiones 
-
-- El tratamiento farmacológico es el más eficaz y frecuente para los pacientes con riesgo asociado a muerte súbita, siendo una opción clave en el manejo de estos pacientes.
-
-- El 100% de los pacientes con insuficiencia cardiaca grave son fumadores, lo que subraya la relación entre el consumo de tabaco y el desarrollo de esta condición en su forma más severa.
-
-- De los 32 pacientes analizados, el 15% presenta una gravedad crítica y antecedentes familiares, con una distribución de género del 60% masculino y 40% femenino. Esta alta prevalencia de gravedad crítica resalta la importancia de los antecedentes familiares en la evaluación del riesgo.
-
-- Dentro de los pacientes con gravedad crítica y antecedentes familiares, el 60% son adultos mayores (entre 51 y 70 años), indicando una mayor vulnerabilidad en este grupo etario.
-
-- En cuanto a la intervención quirúrgica, el 6.25% de los pacientes (2 adultos mayores) con gravedad crítica y antecedentes familiares han tenido que someterse a procedimientos quirúrgicos, lo que destaca la necesidad de un manejo más intensivo en estos casos.
-
-- El 21.87% de los pacientes (7 adultos mayores) presenta un riesgo de edema pulmonar, lo que refleja una prevalencia significativa de esta complicación en este grupo etario.
-
-- Todos los pacientes con riesgo de edema pulmonar y un IMC > 30 son de género masculino, y la mayoría de ellos se encuentran en la categoría de ancianos, lo que sugiere que los factores de obesidad y género tienen un impacto importante en el riesgo de desarrollar esta condición.
-
-- Finalmente, el 71.42% de los pacientes con edema pulmonar y un IMC > 30 corresponden al grupo de pacientes con mayor riesgo dentro de la población de edema pulmonar, representando un 15.625% del total de los pacientes analizados.
-
-
-### Resumen 
-
-Los datos resaltan la relación entre factores como el género, la edad avanzada, el IMC elevado, y los antecedentes familiares con una mayor gravedad de las condiciones tratadas, destacando la necesidad de un enfoque personalizado y preventivo en el tratamiento y monitoreo de estos pacientes.
-
-
-## Recursos adicionales : 
-
-[Repositorio de GitHub con el código completo y descripción](https://github.com/YassmineAhaitaf/Seminario-bbdd)
-
-
-# Finalizando el documento
-
-Para finalizar el documento (y no entorpecer con las prácticas), es necesario crear un código que nos permita **borrar todas las tablas creadas**.
-
-
-Antes de borrarlas , se ha decidido eliminar la columna 'Fecha 'de la tabla 'diagnosticos' como no se ha usado : 
-
-```{sql , connection = con}
-ALTER TABLE diagnosticos
-DROP COLUMN Fecha;
-```
-
-```{sql , connection = con}
-SELECT * FROM diagnosticos;
-```
-
-
-```{r, message=FALSE, warning=FALSE}
-# Obtener la lista de todas las tablas en la base de datos
-tables <- dbListTables(con)
-print(tables)
-
-# Borrar todas las tablas
-for (table in tables) {
-dbExecute(con, paste0("DROP TABLE IF EXISTS ", table, " CASCADE;"))
-}
-
-# Verificar que no queden tablas
-tables_after <- dbListTables(con)
-print(tables_after)
-
-```
-
-Finalmente, desconectamos la base de datos local.
-
-```{r}
-# Cerrar la conexión
-dbDisconnect(con)
 ```
