@@ -26,8 +26,8 @@ dbExecute(con,
           "
           create table tratamientos (
           id_tratamiento SERIAL PRIMARY KEY , 
-          ID_Paciente integer references pacientes(ID_pacientes),
-          tipo_tratamiento varchar(50),
+          ID_Paciente integer references pacientes(ID_pacientes) ON DELETE CASCADE ON UPDATE CASCADE,
+          tipo_tratamiento varchar(50) unique not null,
           detalle varchar(50),
           duracion_meses smallint check (duracion_meses >=0 and duracion_meses<=24) , 
           frecuencia varchar(30) check (frecuencia in ('Diario','Única','Semanal','Mensual')) , 
@@ -86,7 +86,7 @@ VALUES
 #CREANDO LA TABLA DE PACIENTES :
 dbExecute(con, "DROP TABLE IF EXISTS pacientes cascade;")
 dbExecute(con,"CREATE TABLE pacientes(ID_pacientes SERIAL PRIMARY KEY,
-          Nombre varchar(100) not null, 
+          Nombre varchar(100) unique not null, 
           Edad integer CHECK (edad >= 0),
           Genero varchar(10) check (Genero in ('M', 'F')),
           IMC decimal(3,1) check (IMC > 0),

@@ -68,13 +68,13 @@ Código del seminario
 
 #### **Tabla pacientes**
 
-Contendrá los datos de los pacientes.
+Contendrá los datos de los pacientes. Se elige el **id_paciente** como clave primaria de tipo serial que nos permite un autoincremento , y sirve para identificar un sólo y único paciente . El nombre estaba eligidon para ser una clave candidata porque no puede ser nulo y tampoco se puede repetir (el nombre aquí incluye nombre y apellidos). 
 
 ```{r, warning=FALSE, message=FALSE}
 # Crear tabla 'pacientes'
 dbExecute(con, "DROP TABLE IF EXISTS pacientes cascade;")
 dbExecute(con,"CREATE TABLE pacientes(ID_pacientes SERIAL PRIMARY KEY,
-          Nombre varchar(100) not null, 
+          Nombre varchar(100) unique not null, 
           Edad integer CHECK (edad >= 0),
           Genero varchar(10) check (Genero in ('M', 'F')),
           IMC decimal(3,1) check (IMC > 0),
@@ -137,6 +137,11 @@ SELECT * FROM pacientes;
 #### **Tabla diagnosticos**
 
 Contendrá los diagnosticos médicos:
+Se ha elegido que el **id_diagnostico** como clave primaria , porque es propio y único para cada diagnóstico de cada paciente . 
+- **Id_Paciente** es clave ajena para asegurar la integridad referencial , cada diagnóstico pertenece a un paciente . 
+- **ON UPDATE CASCADE ** : Si cambia el `ID_pacientes` en la tabla `pacientes`, este cambio se propaga automáticamente a la tabla `diagnosticos`.
+- **ON DELETE CASCADE** : Si un paciente es eliminado, todos sus diagnósticos asociados también serán eliminados. Esto evita que queden registros huérfanos.
+- **CONSTRAINT** : Aunque ya se especifica la relación REFERENCES, el uso de una `CONSTRAINT` con nombre (en este caso, `fk_paciente_diag`) permite una mayor claridad y facilita la administración de la base de datos. Si se necesitas eliminar o modificar esta restricción, se podría referenciarla directamente por su nombre.
 
 ```{r, message=FALSE, warning=FALSE}
 # Crear tabla 'consultas'
@@ -204,7 +209,13 @@ SELECT * FROM diagnosticos;
 
 #### **Tabla tratamientos**
 
-Contendrá los tratamientos que se administran a los pacientes.
+Contendrá los tratamientos que se administran a los pacientes: 
+
+- **id_tratamiento**: es un identificador único autoincremental para cada tratamiento , se ha usado como clave primaria porque nos permite identificar de manera única cada registro de esta tabla . 
+- **ID_Paciente INTEGER REFERENCES pacientes(ID_pacientes)** : Define que cada tratamiento está vinculado a un paciente específico , utiliza la clave primaria `ID_pacientes`de la tabla `pacientes`para asegurar la integridad referencial . Lo que permitiría que los tratamientos estén directamente relacionados con un paciente , garantizando que solo se puedan asignar tratamientos a pacientes existentes . 
+- **tipo_tratamiento** : Como clave candidata , porque en la tabla de tratamiento no se puede tener a un paciente sin tratamientos . 
+- **ON DELETE CASCADE** :Si un paciente es eliminado, todos sus tratamientos asociados también serán eliminados. Esto evita que queden registros huérfanos . 
+- **ON UPDATE CASCADE** : Si cambia el `ID_pacientes` en la tabla `pacientes`, este cambio se propaga automáticamente a la tabla `tratamientos`.
 
 ```{r warning=FALSE, message=FALSE}
 # Crear tabla 'tratamientos'
@@ -213,13 +224,13 @@ dbExecute(con,
           "
           create table tratamientos (
           id_tratamiento SERIAL PRIMARY KEY , 
-          ID_Paciente integer references pacientes(ID_pacientes),
-          tipo_tratamiento varchar(50),
+          ID_Paciente integer references pacientes(ID_pacientes) ON DELETE CASCADE ON UPDATE CASCADE,
+          tipo_tratamiento varchar(50) unique not null,
           detalle varchar(50),
           duracion_meses smallint check (duracion_meses >=0 and duracion_meses<=24) , 
           frecuencia varchar(30) check (frecuencia in ('Diario','Única','Semanal','Mensual')) , 
           resultado_esperado varchar(70) not null 
-          )" )
+          );" )
 ```
 
 Ahora agregamos valores a la tabla de tratamientos
