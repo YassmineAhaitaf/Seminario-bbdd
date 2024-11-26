@@ -488,11 +488,7 @@ SELECT COUNT(*) AS total_pacientes_edema_imc FROM Edema_IMC;
 Son 5 pacientes que presentan un riesgo asociado a **Edema Pulmonar** y que tienen un **IMC>30** , o una proporción del 71.42% del total de pacientes con riesgo de **Edema Pulmonar** y un 15.625% del total de la población de los pacientes . 
 
 
-```{r, echo=FALSE, eval=FALSE}
-# Consultar los datos
-result <- dbGetQuery(con, "SELECT * FROM usuarios")
-print(result)
-```
+
 
 # Finalizando el documento
 
@@ -504,9 +500,10 @@ Antes de borrarlas , se ha decidido eliminar la columna 'Fecha 'de la tabla 'dia
 ```{sql , connection = con}
 ALTER TABLE diagnosticos
 DROP COLUMN Fecha;
+```
 
+```{sql , connection = con}
 SELECT * FROM diagnosticos;
-
 ```
 
 
